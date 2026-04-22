@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 340" width="800" height="340" style="background:#282828;border-radius:8px;font-family:'Fira Code',monospace">
+  <!-- Python code block -->
+  <rect x="20" y="20" width="280" height="300" rx="8" fill="#1e1e1e" stroke="#515151" stroke-width="1.5"/>
+  <rect x="20" y="20" width="280" height="36" rx="8" fill="#373737"/>
+  <rect x="20" y="44" width="280" height="12" rx="0" fill="#373737"/>
+  <text x="36" y="43" font-size="13" fill="#8c8c8c">your_pipeline.py</text>
+  <text x="36" y="80" font-size="13" fill="#8c8c8c">import </text>
+  <text x="100" y="80" font-size="13" fill="#1a85ff">lakefs_spec</text>
+  <text x="36" y="100" font-size="13" fill="#8c8c8c">import </text>
+  <text x="100" y="100" font-size="13" fill="#1a85ff">pandas</text>
+  <text x="148" y="100" font-size="13" fill="#8c8c8c"> as pd</text>
+  <text x="36" y="128" font-size="13" fill="#8c8c8c">with </text>
+  <text x="72" y="128" font-size="13" fill="#ff9502">lakefs_spec</text>
+  <text x="156" y="128" font-size="13" fill="#8c8c8c">.</text>
+  <text x="163" y="128" font-size="13" fill="#2acd41">transaction</text>
+  <text x="36" y="148" font-size="13" fill="#8c8c8c">    (repo, branch) as tx:</text>
+  <text x="36" y="176" font-size="13" fill="#bfbfbf">  df = pd.</text>
+  <text x="108" y="176" font-size="13" fill="#2acd41">read_csv</text>
+  <text x="36" y="196" font-size="13" fill="#8c8c8c">    (</text>
+  <text x="60" y="196" font-size="13" fill="#ff9502">"lakefs://</text>
+  <text x="36" y="216" font-size="13" fill="#ff9502">     repo/main/data.csv"</text>
+  <text x="36" y="236" font-size="13" fill="#8c8c8c">    )</text>
+  <text x="36" y="264" font-size="13" fill="#8c8c8c">  df.</text>
+  <text x="66" y="264" font-size="13" fill="#2acd41">to_csv</text>
+  <text x="36" y="284" font-size="13" fill="#8c8c8c">    ("lakefs://repo/</text>
+  <text x="36" y="304" font-size="13" fill="#8c8c8c">     branch/out.csv")</text>
+
+  <!-- Arrow 1 -->
+  <line x1="310" y1="170" x2="370" y2="170" stroke="#515151" stroke-width="2" marker-end="url(#arr)"/>
+  <defs>
+    <marker id="arr" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+      <path d="M0,0 L0,6 L8,3 z" fill="#515151"/>
+    </marker>
+  </defs>
+
+  <!-- lakefs-spec box -->
+  <rect x="375" y="130" width="150" height="80" rx="8" fill="#027aff" opacity="0.15" stroke="#027aff" stroke-width="1.5"/>
+  <text x="450" y="162" font-size="14" fill="#1a85ff" text-anchor="middle" font-weight="bold">lakefs-spec</text>
+  <text x="450" y="182" font-size="11" fill="#8c8c8c" text-anchor="middle">fsspec interface</text>
+  <text x="450" y="198" font-size="11" fill="#8c8c8c" text-anchor="middle">for lakeFS</text>
+
+  <!-- Arrow 2 -->
+  <line x1="535" y1="170" x2="595" y2="170" stroke="#515151" stroke-width="2" marker-end="url(#arr)"/>
+
+  <!-- lakeFS server box -->
+  <rect x="600" y="80" width="180" height="180" rx="8" fill="#1e1e1e" stroke="#515151" stroke-width="1.5"/>
+  <text x="690" y="114" font-size="14" fill="#dcdcdc" text-anchor="middle" font-weight="bold">lakeFS</text>
+  <line x1="615" y1="122" x2="765" y2="122" stroke="#373737" stroke-width="1"/>
+  <!-- branch icons -->
+  <circle cx="640" cy="152" r="6" fill="none" stroke="#2acd41" stroke-width="2"/>
+  <circle cx="640" cy="192" r="6" fill="none" stroke="#ff9502" stroke-width="2"/>
+  <circle cx="640" cy="232" r="6" fill="none" stroke="#1a85ff" stroke-width="2"/>
+  <line x1="640" y1="158" x2="640" y2="186" stroke="#515151" stroke-width="1.5"/>
+  <line x1="640" y1="198" x2="640" y2="226" stroke="#515151" stroke-width="1.5"/>
+  <text x="660" y="156" font-size="12" fill="#8c8c8c">main</text>
+  <text x="660" y="196" font-size="12" fill="#8c8c8c">feature/etl</text>
+  <text x="660" y="236" font-size="12" fill="#8c8c8c">experiment</text>
+
+  <!-- Label -->
+  <text x="400" y="320" font-size="12" fill="#686868" text-anchor="middle">lakefs-spec bridges Python's fsspec ecosystem with lakeFS data versioning</text>
+</svg>
