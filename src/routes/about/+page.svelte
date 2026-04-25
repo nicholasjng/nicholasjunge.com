@@ -7,7 +7,6 @@
 </svelte:head>
 
 <div class="px-3 py-20">
-	<h1 class="mb-4 text-3xl font-bold text-fg-1">Hey, I'm Nico.</h1>
 	<p class="text-xl text-fg-2">
 		I'm a mathematician currently working as a software engineer. My main interests are algorithms,
 		especially for differential equations and large optimization problems, open-source scientific
