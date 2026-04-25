@@ -1,0 +1,7 @@
+name: nicholasjunge-website-iam
+description: IAM role used by the nicholasjunge-website Pulumi stack
+runtime:
+  name: python
+  options:
+    toolchain: uv
+    virtualenv: ../../.venv

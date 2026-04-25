@@ -1,0 +1,4 @@
+encryptionsalt: v1:DqgbsGoLbbM=:v1:eEYJB5rr35AFT3OF:3B/XmUDYmchmN/mm31szPp3O3lPAbw==
+config:
+  aws:region: us-east-1
+  nicholasjunge-website-iam:trustedPrincipalArn: arn:aws:iam::506333259771:root
