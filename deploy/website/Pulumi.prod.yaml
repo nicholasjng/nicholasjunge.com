@@ -1,4 +1,0 @@
-encryptionsalt: v1:GuPumVkWBIc=:v1:NQJl6nUdJL5jUsNe:aPHY3284d1EWgg9Bqo+Ie8KU37w2GQ==
-config:
-  aws:region: us-east-1
-  aws:assumeRole.roleArn: arn:aws:iam::506333259771:role/nicholasjunge-deploy

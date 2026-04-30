@@ -18,8 +18,8 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@ec61189d14ec14c8efccab744f656cffd0e33f37 # v6.1.0
         with:
-          # Assumes the github-actions role via OIDC. Pulumi then assumes the
-          # deploy role via aws:assumeRole.roleArn in Pulumi.prod.yaml.
+          # Assumes the github-actions role via OIDC. Terraform then assumes the
+          # deploy role via the assume_role block in deploy/website/providers.tf.
           role-to-assume: arn:aws:iam::506333259771:role/nicholasjunge-github-actions
           aws-region: us-east-1
 
@@ -33,15 +33,14 @@ jobs:
       - name: Build site
         run: npm run build
 
-      - uses: astral-sh/setup-uv@08807647e7069bb48b6ef5acd8ec9567f424441b # v8.1.0
-
-      - run: uv sync
-
-      - name: Pulumi deploy
-        uses: pulumi/actions@8582a9e8cc630786854029b4e09281acd6794b58 # v6.6.1
+      - uses: hashicorp/setup-terraform@5e8dbf3c6d9deaf4193ca7a8fb23f2ac83bb6c85 # v4.0.0
         with:
-          command: up
-          stack-name: prod
-          work-dir: deploy/website
-        env:
-          PULUMI_ACCESS_TOKEN: ${{ secrets.PULUMI_ACCESS_TOKEN }}
+          terraform_version: "~> 1.9"
+
+      - name: Terraform init
+        run: terraform init
+        working-directory: deploy/website
+
+      - name: Terraform apply
+        run: terraform apply -auto-approve
+        working-directory: deploy/website
