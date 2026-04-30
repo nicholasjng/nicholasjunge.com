@@ -1,8 +1,0 @@
-[project]
-name = "nj-website"
-version = "0.1.0"
-dependencies = [
-    "pulumi>=3.0.0,<4.0.0",
-    "pulumi-aws>=6.0.0,<7.0.0",
-    "ty>=0.0.32",
-]
