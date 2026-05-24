@@ -23,23 +23,16 @@
 	}
 </script>
 
-<header class="flex w-full flex-row items-center justify-between px-3 py-8">
-	<a
-		href={resolve('/')}
-		class="text-xl font-bold text-fg-1 no-underline hover:text-fg-1-5 hover:underline"
-	>
-		Nicholas Junge
-	</a>
-	<div class="flex flex-row items-center gap-6">
+<header>
+	<a href={resolve('/')} class="site-title">Nicholas Junge</a>
+	<div class="actions">
 		<nav>
-			<ul class="flex flex-row gap-6 text-lg">
+			<ul>
 				{#each navLinks as link (link.href)}
 					<li>
 						<a
 							href={link.href}
-							class="no-underline transition-colors {page.url.pathname.startsWith(link.href)
-								? 'text-blue-300'
-								: 'text-fg-3 hover:text-fg-1'}"
+							class:active={page.url.pathname.startsWith(link.href)}
 						>
 							{link.label}
 						</a>
@@ -50,13 +43,12 @@
 		<button
 			onclick={toggleTheme}
 			aria-label={dark ? 'Switch to light mode' : 'Switch to dark mode'}
-			class="text-fg-3 transition-colors hover:text-fg-1"
+			class="theme-toggle"
 		>
 			{#if dark}
 				<!-- sun icon -->
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
-					class="h-5 w-5"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -74,7 +66,6 @@
 				<!-- moon icon -->
 				<svg
 					xmlns="http://www.w3.org/2000/svg"
-					class="h-5 w-5"
 					viewBox="0 0 24 24"
 					fill="none"
 					stroke="currentColor"
@@ -89,3 +80,74 @@
 		</button>
 	</div>
 </header>
+
+<style>
+	header {
+		display: flex;
+		width: 100%;
+		flex-direction: row;
+		align-items: center;
+		justify-content: space-between;
+		padding: 2rem 0.75rem;
+	}
+
+	.site-title {
+		font-size: 1.25rem;
+		font-weight: 700;
+		color: var(--color-fg-1);
+	}
+
+	.site-title:hover {
+		color: var(--color-fg-1-5);
+		text-decoration: underline;
+	}
+
+	.actions {
+		display: flex;
+		flex-direction: row;
+		align-items: center;
+		gap: 1.5rem;
+	}
+
+	nav ul {
+		display: flex;
+		flex-direction: row;
+		gap: 1.5rem;
+		font-size: 1.125rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	nav a {
+		color: var(--color-fg-3);
+		transition: color 150ms ease;
+	}
+
+	nav a:hover {
+		color: var(--color-fg-1);
+	}
+
+	nav a.active {
+		color: var(--color-blue-300);
+	}
+
+	.theme-toggle {
+		background: none;
+		border: 0;
+		padding: 0;
+		cursor: pointer;
+		color: var(--color-fg-3);
+		transition: color 150ms ease;
+	}
+
+	.theme-toggle:hover {
+		color: var(--color-fg-1);
+	}
+
+	.theme-toggle svg {
+		display: block;
+		width: 1.25rem;
+		height: 1.25rem;
+	}
+</style>

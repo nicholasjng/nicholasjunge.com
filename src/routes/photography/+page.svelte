@@ -10,46 +10,35 @@
 	<title>Photography</title>
 </svelte:head>
 
-<div class="px-3 py-20">
-	<h1 class="mb-2 text-5xl font-bold text-fg-1">Photography</h1>
-	<p class="text-lg text-fg-3">Photo essays, travel, and gear.</p>
-</div>
+<header class="page-header">
+	<h1>Photography</h1>
+	<p>Photo essays, travel, and gear.</p>
+</header>
 
-<section class="px-3">
+<section class="entry-list">
 	{#if data.photography.length === 0}
-		<p class="text-fg-3">No entries yet. Check back soon.</p>
+		<p class="empty">No entries yet. Check back soon.</p>
 	{:else}
-		<ul class="flex flex-col gap-10">
+		<ul>
 			{#each data.photography as entry (entry.slug)}
 				<li>
-					<a
-						href={resolve('/photography/[slug]', { slug: entry.slug })}
-						class="group block no-underline"
-					>
+					<a href={resolve('/photography/[slug]', { slug: entry.slug })} class="entry-link">
 						{#if entry.metadata.cover}
-							<img
-								src={entry.metadata.cover}
-								alt={entry.metadata.title}
-								class="mb-3 h-48 w-full rounded-lg object-cover transition-opacity group-hover:opacity-90"
-							/>
+							<img class="cover" src={entry.metadata.cover} alt={entry.metadata.title} />
 						{/if}
-						<span class="text-2xl text-blue-300 group-hover:text-blue-400 group-hover:underline">
-							{entry.metadata.title}
-						</span>
+						<span class="title">{entry.metadata.title}</span>
 						{#if entry.metadata.description}
-							<p class="mt-1 leading-snug text-fg-2/80">{entry.metadata.description}</p>
+							<p class="description">{entry.metadata.description}</p>
 						{/if}
-						<div class="mt-2 flex flex-row flex-wrap items-center gap-3">
+						<div class="meta">
 							{#if entry.metadata.publishedOn}
-								<span class="text-sm text-fg-4">
+								<time datetime={entry.metadata.publishedOn}>
 									{formatDate(entry.metadata.publishedOn)}
-								</span>
+								</time>
 							{/if}
 							{#if entry.metadata.tags && entry.metadata.tags.length > 0}
 								{#each entry.metadata.tags as tag (tag)}
-									<span class="font-tags rounded px-1.5 py-0.5 text-sm text-fg-3 ring-1 ring-ui-2">
-										{tag}
-									</span>
+									<span class="tag">{tag}</span>
 								{/each}
 							{/if}
 						</div>
@@ -59,3 +48,92 @@
 		</ul>
 	{/if}
 </section>
+
+<style>
+	.page-header {
+		padding: 5rem 0.75rem;
+	}
+
+	.page-header h1 {
+		font-size: 3rem;
+		font-weight: 700;
+		color: var(--color-fg-1);
+		margin: 0 0 0.5rem 0;
+	}
+
+	.page-header p {
+		font-size: 1.125rem;
+		color: var(--color-fg-3);
+		margin: 0;
+	}
+
+	.entry-list {
+		padding: 0 0.75rem;
+	}
+
+	.empty {
+		color: var(--color-fg-3);
+	}
+
+	.entry-list ul {
+		display: flex;
+		flex-direction: column;
+		gap: 2.5rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.entry-link {
+		display: block;
+	}
+
+	.cover {
+		margin-bottom: 0.75rem;
+		width: 100%;
+		height: 12rem;
+		border-radius: 0.5rem;
+		object-fit: cover;
+		transition: opacity 150ms ease;
+	}
+
+	.entry-link:hover .cover {
+		opacity: 0.9;
+	}
+
+	.title {
+		font-size: 1.5rem;
+		color: var(--color-blue-300);
+	}
+
+	.entry-link:hover .title {
+		color: var(--color-blue-400);
+		text-decoration: underline;
+	}
+
+	.description {
+		margin: 0.25rem 0 0 0;
+		line-height: 1.375;
+		color: color-mix(in srgb, var(--color-fg-2) 80%, transparent);
+	}
+
+	.meta {
+		margin-top: 0.5rem;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 0.75rem;
+		font-size: 0.875rem;
+		color: var(--color-fg-4);
+	}
+
+	.tag {
+		font-family: var(--font-family-tags);
+		font-size: 0.875rem;
+		color: var(--color-fg-3);
+		border: 1px solid var(--color-ui-2);
+		border-radius: 0.25rem;
+		padding: 0.125rem 0.375rem;
+	}
+</style>

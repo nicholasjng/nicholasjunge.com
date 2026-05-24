@@ -15,52 +15,111 @@
 	{/if}
 </svelte:head>
 
-<article class="w-full px-3">
+<article class="entry">
 	{#if metadata.cover}
-		<div class="py-8">
-			<img
-				src={metadata.cover}
-				alt={metadata.title}
-				class="h-72 w-full rounded-lg object-cover sm:h-96"
-			/>
+		<div class="cover-wrap">
+			<img class="cover" src={metadata.cover} alt={metadata.title} />
 		</div>
 	{/if}
 
-	<header class="flex flex-col gap-2 {metadata.cover ? 'pb-16' : 'py-16'}">
-		<h1 class="text-4xl font-bold text-fg-1 sm:text-5xl">{metadata.title}</h1>
+	<header class:has-cover={metadata.cover}>
+		<h1>{metadata.title}</h1>
 
 		{#if metadata.tags && metadata.tags.length > 0}
-			<ul class="mt-1 flex flex-row flex-wrap gap-x-2">
+			<ul class="tags">
 				{#each metadata.tags as tag (tag)}
 					<li>
-						<a
-							href={resolve('/tags/[tag]', { tag: normalizeTag(tag) })}
-							class="font-tags text-base text-fg-3 no-underline hover:text-fg-2 hover:underline"
-							>#{tag}</a
-						>
+						<a href={resolve('/tags/[tag]', { tag: normalizeTag(tag) })}>#{tag}</a>
 					</li>
 				{/each}
 			</ul>
 		{/if}
 
 		{#if metadata.publishedOn}
-			<p class="mt-4 text-base text-fg-3">
-				Published on {formatDate(metadata.publishedOn)}
+			<p class="published">
+				Published on <time datetime={metadata.publishedOn}
+					>{formatDate(metadata.publishedOn)}</time
+				>
 			</p>
 		{/if}
 	</header>
 
-	<div
-		class="prose max-w-none text-lg
-			leading-normal
-			text-fg-2
-			prose-invert sm:leading-snug prose-headings:text-fg-1
-			prose-a:font-normal prose-a:text-blue-300
-			prose-a:no-underline
-			hover:prose-a:text-blue-400 hover:prose-a:underline
-			prose-blockquote:border-ui-2 prose-blockquote:text-fg-3
-			prose-strong:text-fg-1-5 prose-img:w-full prose-img:rounded-md"
-	>
+	<div class="prose prose--wide-img">
 		<Entry />
 	</div>
 </article>
+
+<style>
+	.entry {
+		width: 100%;
+		padding: 0 0.75rem;
+	}
+
+	.cover-wrap {
+		padding: 2rem 0;
+	}
+
+	.cover {
+		width: 100%;
+		height: 18rem;
+		border-radius: 0.5rem;
+		object-fit: cover;
+	}
+
+	@media (min-width: 640px) {
+		.cover {
+			height: 24rem;
+		}
+	}
+
+	.entry > header {
+		display: flex;
+		flex-direction: column;
+		gap: 0.5rem;
+		padding: 4rem 0;
+	}
+
+	.entry > header.has-cover {
+		padding: 0 0 4rem 0;
+	}
+
+	.entry h1 {
+		font-size: 2.25rem;
+		font-weight: 700;
+		color: var(--color-fg-1);
+		margin: 0;
+	}
+
+	@media (min-width: 640px) {
+		.entry h1 {
+			font-size: 3rem;
+		}
+	}
+
+	.tags {
+		margin: 0.25rem 0 0 0;
+		padding: 0;
+		display: flex;
+		flex-direction: row;
+		flex-wrap: wrap;
+		gap: 0 0.5rem;
+		list-style: none;
+	}
+
+	.tags a {
+		font-family: var(--font-family-tags);
+		font-size: 1rem;
+		color: var(--color-fg-3);
+	}
+
+	.tags a:hover {
+		color: var(--color-fg-2);
+		text-decoration: underline;
+	}
+
+	.published {
+		margin: 1rem 0 0 0;
+		font-size: 1rem;
+		color: var(--color-fg-3);
+	}
+</style>
