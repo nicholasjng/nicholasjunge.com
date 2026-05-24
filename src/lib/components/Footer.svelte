@@ -28,33 +28,71 @@
 	];
 </script>
 
-<footer class="mt-auto px-3 pt-16 pb-10">
-	<div class="flex flex-col items-center gap-4">
-		<ul class="flex flex-row gap-5">
-			{#each socials as social (social.label)}
-				<li>
-					<a
-						href={social.href}
-						target={social.href.startsWith('mailto') ? undefined : '_blank'}
-						rel="external noopener noreferrer"
-						aria-label={social.label}
-						class="block text-fg-4 transition-colors hover:text-fg-1"
+<footer>
+	<ul class="socials">
+		{#each socials as social (social.label)}
+			<li>
+				<a
+					href={social.href}
+					target={social.href.startsWith('mailto') ? undefined : '_blank'}
+					rel="external noopener noreferrer"
+					aria-label={social.label}
+				>
+					<svg
+						role="img"
+						viewBox={social.viewBox}
+						xmlns="http://www.w3.org/2000/svg"
+						aria-hidden="true"
 					>
-						<svg
-							role="img"
-							viewBox={social.viewBox}
-							xmlns="http://www.w3.org/2000/svg"
-							class="h-5 w-5 fill-current"
-							aria-hidden="true"
-						>
-							<path d={social.path} />
-						</svg>
-					</a>
-				</li>
-			{/each}
-		</ul>
-		<p class="text-sm text-fg-4">
-			&copy; {new Date().getFullYear()} Nicholas Junge
-		</p>
-	</div>
+						<path d={social.path} />
+					</svg>
+				</a>
+			</li>
+		{/each}
+	</ul>
+	<p class="copyright">
+		&copy; {new Date().getFullYear()} Nicholas Junge
+	</p>
 </footer>
+
+<style>
+	footer {
+		margin-top: auto;
+		padding: 4rem 0.75rem 2.5rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 1rem;
+	}
+
+	.socials {
+		display: flex;
+		flex-direction: row;
+		gap: 1.25rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.socials a {
+		display: block;
+		color: var(--color-fg-4);
+		transition: color 150ms ease;
+	}
+
+	.socials a:hover {
+		color: var(--color-fg-1);
+	}
+
+	.socials svg {
+		width: 1.25rem;
+		height: 1.25rem;
+		fill: currentColor;
+	}
+
+	.copyright {
+		font-size: 0.875rem;
+		color: var(--color-fg-4);
+		margin: 0;
+	}
+</style>

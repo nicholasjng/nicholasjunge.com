@@ -10,28 +10,28 @@
 	<title>#{data.tag}</title>
 </svelte:head>
 
-<div class="px-3 py-20">
-	<p class="mb-1 text-sm text-fg-4">Tag</p>
-	<h1 class="text-4xl font-bold text-fg-1">#{data.tag}</h1>
-</div>
+<header class="page-header">
+	<p class="kicker">Tag</p>
+	<h1>#{data.tag}</h1>
+</header>
 
 {#if data.notes.length > 0}
-	<section class="px-3">
-		<h2 class="mb-6 text-xl font-semibold text-fg-2">Notes</h2>
-		<ul class="flex flex-col gap-8">
+	<section class="notes">
+		<h2>Notes</h2>
+		<ul class="note-list">
 			{#each data.notes as note (note.slug)}
 				<li>
-					<a href={resolve('/notes/[slug]', { slug: note.slug })} class="group block no-underline">
-						<span class="text-2xl text-blue-300 group-hover:text-blue-400 group-hover:underline">
-							{note.metadata.title}
-						</span>
+					<a href={resolve('/notes/[slug]', { slug: note.slug })} class="title-link">
+						<span class="title">{note.metadata.title}</span>
 						{#if note.metadata.description}
-							<p class="mt-1 text-base leading-snug text-fg-2/80">
-								{note.metadata.description}
-							</p>
+							<p class="description">{note.metadata.description}</p>
 						{/if}
 						{#if note.metadata.publishedOn}
-							<p class="mt-1 text-sm text-fg-4">{formatDate(note.metadata.publishedOn)}</p>
+							<p class="date">
+								<time datetime={note.metadata.publishedOn}
+									>{formatDate(note.metadata.publishedOn)}</time
+								>
+							</p>
 						{/if}
 					</a>
 				</li>
@@ -41,34 +41,31 @@
 {/if}
 
 {#if data.photography.length > 0}
-	<section class="px-3 {data.notes.length > 0 ? 'mt-16' : ''}">
-		<h2 class="mb-6 text-xl font-semibold text-fg-2">Photography</h2>
-		<ul class="ml-1.5 flex flex-col">
+	<section class="photography" class:has-prev={data.notes.length > 0}>
+		<h2>Photography</h2>
+		<ul class="timeline">
 			{#each data.photography as entry, i (entry.slug)}
 				{@const isFirst = i === 0}
 				{@const isLast = i === data.photography.length - 1}
-				<li class="relative py-4 pl-6">
+				<li>
 					{#if data.photography.length > 1}
 						{#if isFirst}
-							<span class="absolute top-[1.6rem] bottom-0 left-0 w-px bg-fg-4/30"></span>
+							<span class="thread thread--from-row"></span>
 						{:else if isLast}
-							<span class="absolute top-0 left-0 h-[1.6rem] w-px bg-fg-4/30"></span>
+							<span class="thread thread--to-row"></span>
 						{:else}
-							<span class="absolute top-0 bottom-0 left-0 w-px bg-fg-4/30"></span>
+							<span class="thread"></span>
 						{/if}
 					{/if}
-					<span
-						class="absolute top-[1.35rem] -left-1.25 z-10 h-2.5 w-2.5 rounded-full border border-fg-4/50 bg-bg-1"
-					></span>
-					<a
-						href={resolve('/photography/[slug]', { slug: entry.slug })}
-						class="group block no-underline"
-					>
-						<span class="text-xl text-blue-300 group-hover:text-blue-400 group-hover:underline">
-							{entry.metadata.title}
-						</span>
+					<span class="dot"></span>
+					<a href={resolve('/photography/[slug]', { slug: entry.slug })} class="title-link">
+						<span class="title title--small">{entry.metadata.title}</span>
 						{#if entry.metadata.publishedOn}
-							<p class="mt-1 text-sm text-fg-4">{formatDate(entry.metadata.publishedOn)}</p>
+							<p class="date">
+								<time datetime={entry.metadata.publishedOn}
+									>{formatDate(entry.metadata.publishedOn)}</time
+								>
+							</p>
 						{/if}
 					</a>
 				</li>
@@ -78,7 +75,128 @@
 {/if}
 
 {#if data.notes.length === 0 && data.photography.length === 0}
-	<section class="px-3">
-		<p class="text-fg-3">No posts tagged #{data.tag}.</p>
+	<section class="empty-section">
+		<p>No posts tagged #{data.tag}.</p>
 	</section>
 {/if}
+
+<style>
+	.page-header {
+		padding: 5rem 0.75rem;
+	}
+
+	.kicker {
+		margin: 0 0 0.25rem 0;
+		font-size: 0.875rem;
+		color: var(--color-fg-4);
+	}
+
+	.page-header h1 {
+		font-size: 2.25rem;
+		font-weight: 700;
+		color: var(--color-fg-1);
+		margin: 0;
+	}
+
+	section {
+		padding: 0 0.75rem;
+	}
+
+	section h2 {
+		margin: 0 0 1.5rem 0;
+		font-size: 1.25rem;
+		font-weight: 600;
+		color: var(--color-fg-2);
+	}
+
+	.photography.has-prev {
+		margin-top: 4rem;
+	}
+
+	.note-list {
+		display: flex;
+		flex-direction: column;
+		gap: 2rem;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.title-link {
+		display: block;
+	}
+
+	.title {
+		font-size: 1.5rem;
+		color: var(--color-blue-300);
+	}
+
+	.title--small {
+		font-size: 1.25rem;
+	}
+
+	.title-link:hover .title {
+		color: var(--color-blue-400);
+		text-decoration: underline;
+	}
+
+	.description {
+		margin: 0.25rem 0 0 0;
+		font-size: 1rem;
+		line-height: 1.375;
+		color: color-mix(in srgb, var(--color-fg-2) 80%, transparent);
+	}
+
+	.date {
+		margin: 0.25rem 0 0 0;
+		font-size: 0.875rem;
+		color: var(--color-fg-4);
+	}
+
+	.timeline {
+		margin: 0 0 0 0.375rem;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		list-style: none;
+	}
+
+	.timeline > li {
+		position: relative;
+		padding: 1rem 0 1rem 1.5rem;
+	}
+
+	.thread {
+		position: absolute;
+		left: 0;
+		top: 0;
+		bottom: 0;
+		width: 1px;
+		background: color-mix(in srgb, var(--color-fg-4) 30%, transparent);
+	}
+
+	.thread--from-row {
+		top: 1.6rem;
+	}
+
+	.thread--to-row {
+		bottom: auto;
+		height: 1.6rem;
+	}
+
+	.dot {
+		position: absolute;
+		top: 1.35rem;
+		left: -0.3125rem;
+		z-index: 1;
+		width: 0.625rem;
+		height: 0.625rem;
+		border-radius: 9999px;
+		border: 1px solid color-mix(in srgb, var(--color-fg-4) 50%, transparent);
+		background: var(--color-bg-1);
+	}
+
+	.empty-section p {
+		color: var(--color-fg-3);
+	}
+</style>
