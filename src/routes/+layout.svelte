@@ -1,7 +1,9 @@
 <script lang="ts">
 	import '@fontsource-variable/afacad-flux';
 	import '@fontsource-variable/fira-code';
-	import './layout.css';
+	import './var.css';
+	import './reset.css';
+	import './global.css';
 	import Header from '$lib/components/Header.svelte';
 	import Footer from '$lib/components/Footer.svelte';
 
@@ -27,7 +29,7 @@
 		display: flex;
 		flex-direction: column;
 		width: 100%;
-		max-width: 48rem;
+		max-width: var(--page-max-width);
 		min-height: 100vh;
 		margin: 0 auto;
 	}

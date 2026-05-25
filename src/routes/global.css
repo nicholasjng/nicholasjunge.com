@@ -1,0 +1,142 @@
+html,
+body {
+	background-color: var(--color-bg-1);
+	color: var(--color-fg-2);
+	font-family: var(--font-family-display);
+}
+
+/* Markdown prose container — replaces @tailwindcss/typography */
+.prose {
+	font-size: var(--font-size-l);
+	line-height: 1.5;
+	color: var(--color-fg-2);
+}
+
+@media (min-width: 640px) {
+	.prose {
+		line-height: 1.375;
+	}
+}
+
+.prose h1,
+.prose h2,
+.prose h3,
+.prose h4,
+.prose h5,
+.prose h6 {
+	color: var(--color-fg-1);
+	font-weight: 700;
+	line-height: 1.2;
+}
+
+.prose h1 {
+	font-size: var(--font-size-4xl);
+}
+.prose h2 {
+	font-size: 1.75rem;
+}
+.prose h3 {
+	font-size: 1.375rem;
+}
+
+.prose p {
+	margin: 1em 0;
+}
+
+.prose a {
+	color: var(--color-blue-300);
+	text-decoration: none;
+}
+
+.prose a:hover {
+	color: var(--color-blue-400);
+	text-decoration: underline;
+}
+
+.prose strong {
+	color: var(--color-fg-1-5);
+	font-weight: 700;
+}
+
+.prose code {
+	color: var(--color-orange-400);
+	font-family: var(--font-family-code);
+	font-size: 0.9em;
+}
+
+.prose pre {
+	font-family: var(--font-family-code);
+	overflow-x: auto;
+}
+
+.prose pre code {
+	color: inherit;
+	font-size: inherit;
+}
+
+.prose blockquote {
+	border-left: 4px solid var(--color-ui-2);
+	color: var(--color-fg-3);
+	padding-left: 1em;
+	margin: 1em 0;
+	font-style: italic;
+}
+
+.prose img {
+	border-radius: var(--radius-m);
+}
+
+.prose--wide-img img {
+	width: 100%;
+}
+
+.prose ul,
+.prose ol {
+	padding-left: 1.5em;
+	margin: 1em 0;
+}
+
+.prose li {
+	margin: 0.25em 0;
+}
+
+.prose hr {
+	border: 0;
+	border-top: 1px solid var(--color-ui-2);
+	margin: 2em 0;
+}
+
+.prose table {
+	border-collapse: collapse;
+	width: 100%;
+	margin: 1em 0;
+}
+
+.prose th,
+.prose td {
+	border: 1px solid var(--color-ui-2);
+	padding: 0.5em 0.75em;
+	text-align: left;
+}
+
+/* shiki: dark theme by default, light when html.light is set */
+.shiki {
+	font-family: var(--font-family-code);
+	font-size: 0.86em;
+	line-height: 1.6;
+	border-radius: var(--radius-l);
+	padding: var(--space-m);
+	overflow-x: auto;
+}
+
+.shiki,
+.shiki span {
+	color: var(--shiki-dark);
+	background-color: var(--shiki-dark-bg);
+}
+
+html.light .shiki,
+html.light .shiki span {
+	color: var(--shiki-light);
+	background-color: var(--shiki-light-bg);
+}

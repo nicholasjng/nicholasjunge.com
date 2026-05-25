@@ -58,11 +58,11 @@
 <style>
 	footer {
 		margin-top: auto;
-		padding: 4rem 0.75rem 2.5rem;
+		padding: var(--space-2xl) var(--space-s) var(--space-xl);
 		display: flex;
 		flex-direction: column;
 		align-items: center;
-		gap: 1rem;
+		gap: var(--space-m);
 	}
 
 	.socials {
@@ -77,7 +77,7 @@
 	.socials a {
 		display: block;
 		color: var(--color-fg-4);
-		transition: color 150ms ease;
+		transition: color var(--transition-fast);
 	}
 
 	.socials a:hover {
@@ -85,13 +85,13 @@
 	}
 
 	.socials svg {
-		width: 1.25rem;
-		height: 1.25rem;
+		width: var(--font-size-xl);
+		height: var(--font-size-xl);
 		fill: currentColor;
 	}
 
 	.copyright {
-		font-size: 0.875rem;
+		font-size: var(--font-size-s);
 		color: var(--color-fg-4);
 		margin: 0;
 	}

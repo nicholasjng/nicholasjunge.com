@@ -1,6 +1,12 @@
-import { mdsvex } from 'mdsvex';
+import { mdsvex, escapeSvelte } from 'mdsvex';
 import remarkGfm from 'remark-gfm';
 import adapter from '@sveltejs/adapter-static';
+import { createHighlighter } from 'shiki';
+
+const highlighter = await createHighlighter({
+	themes: ['github-dark', 'github-light'],
+	langs: ['python', 'typescript', 'javascript', 'bash', 'json', 'css', 'html', 'svelte', 'rust', 'c', 'cpp']
+});
 
 /** @type {import('@sveltejs/kit').Config} */
 const config = {
@@ -11,7 +17,24 @@ const config = {
 	kit: {
 		adapter: adapter({ fallback: 'index.html' })
 	},
-	preprocess: [mdsvex({ extensions: ['.svx', '.md'], remarkPlugins: [remarkGfm] })],
+	preprocess: [
+		mdsvex({
+			extensions: ['.svx', '.md'],
+			remarkPlugins: [remarkGfm],
+			highlight: {
+				highlighter: (code, lang = 'text') => {
+					const html = escapeSvelte(
+						highlighter.codeToHtml(code, {
+							lang,
+							themes: { light: 'github-light', dark: 'github-dark' },
+							defaultColor: false
+						})
+					);
+					return `{@html \`${html}\`}`;
+				}
+			}
+		})
+	],
 	extensions: ['.svelte', '.svx', '.md']
 };
 

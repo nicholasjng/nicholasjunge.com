@@ -96,22 +96,22 @@
 
 <style>
 	section {
-		padding: 0 0.75rem;
+		padding: 0 var(--space-s);
 	}
 
 	.notes {
-		padding-top: 5rem;
+		padding-top: var(--space-3xl);
 	}
 
 	.photography {
-		margin-top: 4rem;
+		margin-top: var(--space-2xl);
 	}
 
 	h2 {
-		font-size: 1.875rem;
+		font-size: var(--font-size-3xl);
 		font-weight: 700;
 		color: var(--color-fg-1);
-		margin: 0 0 1.5rem 0;
+		margin: 0 0 var(--space-l) 0;
 	}
 
 	.empty {
@@ -128,7 +128,7 @@
 
 	.timeline > li {
 		position: relative;
-		padding: 1rem 0;
+		padding: var(--space-m) 0;
 	}
 
 	.thread {
@@ -159,7 +159,7 @@
 	.row {
 		display: flex;
 		align-items: center;
-		gap: 0.75rem;
+		gap: var(--space-s);
 	}
 
 	.dot {
@@ -168,7 +168,7 @@
 		width: 0.625rem;
 		height: 0.625rem;
 		flex-shrink: 0;
-		border-radius: 9999px;
+		border-radius: var(--radius-full);
 		background: color-mix(in srgb, var(--color-fg-4) 70%, transparent);
 	}
 
@@ -177,12 +177,12 @@
 	}
 
 	.title {
-		font-size: 1.5rem;
+		font-size: var(--font-size-2xl);
 		color: var(--color-blue-300);
 	}
 
 	.title--small {
-		font-size: 1.25rem;
+		font-size: var(--font-size-xl);
 	}
 
 	.title-link:hover .title {
@@ -195,27 +195,27 @@
 	}
 
 	.description {
-		margin: 0.25rem 0 0 0;
-		font-size: 1rem;
+		margin: var(--space-2xs) 0 0 0;
+		font-size: var(--font-size-m);
 		line-height: 1.375;
 		color: color-mix(in srgb, var(--color-fg-2) 80%, transparent);
 	}
 
 	.date {
-		margin: 0.25rem 0 0 0;
-		font-size: 0.875rem;
+		margin: var(--space-2xs) 0 0 0;
+		font-size: var(--font-size-s);
 		color: var(--color-fg-4);
 	}
 
 	.tags {
-		margin-top: 0.5rem;
+		margin-top: var(--space-xs);
 		display: flex;
 		flex-wrap: wrap;
-		gap: 0.75rem;
+		gap: var(--space-s);
 	}
 
 	.tags a {
-		font-size: 0.75rem;
+		font-size: var(--font-size-xs);
 		color: var(--color-fg-4);
 	}
 

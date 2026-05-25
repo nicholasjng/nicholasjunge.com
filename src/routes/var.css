@@ -1,0 +1,78 @@
+:root {
+	/* Colors — dark theme defaults */
+	--color-bg-1: #1e1e1e;
+	--color-bg-2: #282828;
+	--color-bg-3: #ffffff1c;
+	--color-fg-1: #dcdcdc;
+	--color-fg-1-5: #cdcdcd;
+	--color-fg-2: #bfbfbf;
+	--color-fg-3: #8c8c8c;
+	--color-fg-4: #686868;
+	--color-ui-1: #373737;
+	--color-ui-2: #515151;
+	--color-ui-3: #595959;
+	--color-blue-300: #1a85ff;
+	--color-blue-400: #027aff;
+	--color-blue-500: #0065d9;
+	--color-orange-400: #ff9502;
+	--color-orange-500: #e68600;
+	--color-green-400: #2acd41;
+	--color-cyan-400: #02c7be;
+	--color-red-400: #ff3b11;
+
+	/* Fonts */
+	--font-family-display: 'Afacad Flux', sans-serif;
+	--font-family-code: 'Fira Code', 'Fira Code VF', monospace;
+	--font-family-tags:
+		'mononoki Nerd Font Mono', 'mononoki Nerd Font', 'mononoki NF', 'mononoki', 'Fira Code',
+		monospace;
+
+	/* Spacing scale */
+	--space-2xs: 0.25rem;
+	--space-xs: 0.5rem;
+	--space-s: 0.75rem;
+	--space-m: 1rem;
+	--space-l: 1.5rem;
+	--space-xl: 2.5rem;
+	--space-2xl: 4rem;
+	--space-3xl: 5rem;
+
+	/* Font size scale */
+	--font-size-xs: 0.75rem;
+	--font-size-s: 0.875rem;
+	--font-size-m: 1rem;
+	--font-size-l: 1.125rem;
+	--font-size-xl: 1.25rem;
+	--font-size-2xl: 1.5rem;
+	--font-size-3xl: 1.875rem;
+	--font-size-4xl: 2.25rem;
+	--font-size-5xl: 3rem;
+
+	/* Border radius scale */
+	--radius-s: 0.25rem;
+	--radius-m: 0.375rem;
+	--radius-l: 0.5rem;
+	--radius-full: 9999px;
+
+	/* Transitions */
+	--transition-fast: 150ms ease;
+
+	/* Layout */
+	--page-max-width: 48rem;
+	--breakpoint-sm: 640px;
+}
+
+/* Light mode theme overrides */
+html.light {
+	--color-bg-1: #f9f9f7;
+	--color-bg-2: #f0f0ed;
+	--color-bg-3: #00000008;
+	--color-fg-1: #1c1c1c;
+	--color-fg-1-5: #2a2a2a;
+	--color-fg-2: #404040;
+	--color-fg-3: #7a7a7a;
+	--color-fg-4: #9a9a9a;
+	--color-ui-1: #e0e0dd;
+	--color-ui-2: #d0d0cc;
+	--color-ui-3: #c4c4c0;
+}
