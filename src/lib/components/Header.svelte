@@ -88,11 +88,11 @@
 		flex-direction: row;
 		align-items: center;
 		justify-content: space-between;
-		padding: 2rem 0.75rem;
+		padding: 2rem var(--space-s);
 	}
 
 	.site-title {
-		font-size: 1.25rem;
+		font-size: var(--font-size-xl);
 		font-weight: 700;
 		color: var(--color-fg-1);
 	}
@@ -106,14 +106,14 @@
 		display: flex;
 		flex-direction: row;
 		align-items: center;
-		gap: 1.5rem;
+		gap: var(--space-l);
 	}
 
 	nav ul {
 		display: flex;
 		flex-direction: row;
-		gap: 1.5rem;
-		font-size: 1.125rem;
+		gap: var(--space-l);
+		font-size: var(--font-size-l);
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -121,7 +121,7 @@
 
 	nav a {
 		color: var(--color-fg-3);
-		transition: color 150ms ease;
+		transition: color var(--transition-fast);
 	}
 
 	nav a:hover {
@@ -138,7 +138,7 @@
 		padding: 0;
 		cursor: pointer;
 		color: var(--color-fg-3);
-		transition: color 150ms ease;
+		transition: color var(--transition-fast);
 	}
 
 	.theme-toggle:hover {
@@ -147,7 +147,7 @@
 
 	.theme-toggle svg {
 		display: block;
-		width: 1.25rem;
-		height: 1.25rem;
+		width: var(--font-size-xl);
+		height: var(--font-size-xl);
 	}
 </style>

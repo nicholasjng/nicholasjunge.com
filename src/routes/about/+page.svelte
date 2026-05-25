@@ -28,17 +28,17 @@
 
 <style>
 	.about {
-		padding: 5rem 0.75rem;
+		padding: var(--space-3xl) var(--space-s);
 	}
 
 	.about p {
-		font-size: 1.25rem;
+		font-size: var(--font-size-xl);
 		color: var(--color-fg-2);
 		margin: 0;
 	}
 
 	.about p + p {
-		margin-top: 1rem;
+		margin-top: var(--space-m);
 	}
 
 	.about a {

@@ -52,7 +52,7 @@
 <style>
 	.entry {
 		width: 100%;
-		padding: 0 0.75rem;
+		padding: 0 var(--space-s);
 	}
 
 	.cover-wrap {
@@ -62,7 +62,7 @@
 	.cover {
 		width: 100%;
 		height: 18rem;
-		border-radius: 0.5rem;
+		border-radius: var(--radius-l);
 		object-fit: cover;
 	}
 
@@ -75,16 +75,16 @@
 	.entry > header {
 		display: flex;
 		flex-direction: column;
-		gap: 0.5rem;
-		padding: 4rem 0;
+		gap: var(--space-xs);
+		padding: var(--space-2xl) 0;
 	}
 
 	.entry > header.has-cover {
-		padding: 0 0 4rem 0;
+		padding: 0 0 var(--space-2xl) 0;
 	}
 
 	.entry h1 {
-		font-size: 2.25rem;
+		font-size: var(--font-size-4xl);
 		font-weight: 700;
 		color: var(--color-fg-1);
 		margin: 0;
@@ -92,23 +92,23 @@
 
 	@media (min-width: 640px) {
 		.entry h1 {
-			font-size: 3rem;
+			font-size: var(--font-size-5xl);
 		}
 	}
 
 	.tags {
-		margin: 0.25rem 0 0 0;
+		margin: var(--space-2xs) 0 0 0;
 		padding: 0;
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		gap: 0 0.5rem;
+		gap: 0 var(--space-xs);
 		list-style: none;
 	}
 
 	.tags a {
 		font-family: var(--font-family-tags);
-		font-size: 1rem;
+		font-size: var(--font-size-m);
 		color: var(--color-fg-3);
 	}
 
@@ -118,8 +118,8 @@
 	}
 
 	.published {
-		margin: 1rem 0 0 0;
-		font-size: 1rem;
+		margin: var(--space-m) 0 0 0;
+		font-size: var(--font-size-m);
 		color: var(--color-fg-3);
 	}
 </style>

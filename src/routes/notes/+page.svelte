@@ -48,24 +48,24 @@
 
 <style>
 	.page-header {
-		padding: 5rem 0.75rem;
+		padding: var(--space-3xl) var(--space-s);
 	}
 
 	.page-header h1 {
-		font-size: 3rem;
+		font-size: var(--font-size-5xl);
 		font-weight: 700;
 		color: var(--color-fg-1);
-		margin: 0 0 0.5rem 0;
+		margin: 0 0 var(--space-xs) 0;
 	}
 
 	.page-header p {
-		font-size: 1.125rem;
+		font-size: var(--font-size-l);
 		color: var(--color-fg-3);
 		margin: 0;
 	}
 
 	.note-list {
-		padding: 0 0.75rem;
+		padding: 0 var(--space-s);
 	}
 
 	.empty {
@@ -75,7 +75,7 @@
 	.note-list ul {
 		display: flex;
 		flex-direction: column;
-		gap: 2.5rem;
+		gap: var(--space-xl);
 		list-style: none;
 		margin: 0;
 		padding: 0;
@@ -86,7 +86,7 @@
 	}
 
 	.title {
-		font-size: 1.5rem;
+		font-size: var(--font-size-2xl);
 		color: var(--color-blue-300);
 	}
 
@@ -96,19 +96,19 @@
 	}
 
 	.description {
-		margin: 0.25rem 0 0 0;
+		margin: var(--space-2xs) 0 0 0;
 		line-height: 1.375;
 		color: color-mix(in srgb, var(--color-fg-2) 80%, transparent);
 	}
 
 	.meta {
-		margin-top: 0.5rem;
+		margin-top: var(--space-xs);
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
 		align-items: center;
-		gap: 0.75rem;
-		font-size: 0.875rem;
+		gap: var(--space-s);
+		font-size: var(--font-size-s);
 		color: var(--color-fg-4);
 	}
 

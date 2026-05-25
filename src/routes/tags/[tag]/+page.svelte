@@ -82,35 +82,35 @@
 
 <style>
 	.page-header {
-		padding: 5rem 0.75rem;
+		padding: var(--space-3xl) var(--space-s);
 	}
 
 	.kicker {
-		margin: 0 0 0.25rem 0;
-		font-size: 0.875rem;
+		margin: 0 0 var(--space-2xs) 0;
+		font-size: var(--font-size-s);
 		color: var(--color-fg-4);
 	}
 
 	.page-header h1 {
-		font-size: 2.25rem;
+		font-size: var(--font-size-4xl);
 		font-weight: 700;
 		color: var(--color-fg-1);
 		margin: 0;
 	}
 
 	section {
-		padding: 0 0.75rem;
+		padding: 0 var(--space-s);
 	}
 
 	section h2 {
-		margin: 0 0 1.5rem 0;
-		font-size: 1.25rem;
+		margin: 0 0 var(--space-l) 0;
+		font-size: var(--font-size-xl);
 		font-weight: 600;
 		color: var(--color-fg-2);
 	}
 
 	.photography.has-prev {
-		margin-top: 4rem;
+		margin-top: var(--space-2xl);
 	}
 
 	.note-list {
@@ -127,12 +127,12 @@
 	}
 
 	.title {
-		font-size: 1.5rem;
+		font-size: var(--font-size-2xl);
 		color: var(--color-blue-300);
 	}
 
 	.title--small {
-		font-size: 1.25rem;
+		font-size: var(--font-size-xl);
 	}
 
 	.title-link:hover .title {
@@ -141,15 +141,15 @@
 	}
 
 	.description {
-		margin: 0.25rem 0 0 0;
-		font-size: 1rem;
+		margin: var(--space-2xs) 0 0 0;
+		font-size: var(--font-size-m);
 		line-height: 1.375;
 		color: color-mix(in srgb, var(--color-fg-2) 80%, transparent);
 	}
 
 	.date {
-		margin: 0.25rem 0 0 0;
-		font-size: 0.875rem;
+		margin: var(--space-2xs) 0 0 0;
+		font-size: var(--font-size-s);
 		color: var(--color-fg-4);
 	}
 
@@ -163,7 +163,7 @@
 
 	.timeline > li {
 		position: relative;
-		padding: 1rem 0 1rem 1.5rem;
+		padding: var(--space-m) 0 var(--space-m) var(--space-l);
 	}
 
 	.thread {
@@ -191,7 +191,7 @@
 		z-index: 1;
 		width: 0.625rem;
 		height: 0.625rem;
-		border-radius: 9999px;
+		border-radius: var(--radius-full);
 		border: 1px solid color-mix(in srgb, var(--color-fg-4) 50%, transparent);
 		background: var(--color-bg-1);
 	}
