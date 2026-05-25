@@ -1,3 +1,10 @@
 {
-	"enabledMcpjsonServers": ["svelte"]
+  "enabledMcpjsonServers": [
+    "svelte"
+  ],
+  "permissions": {
+    "allow": [
+      "WebFetch(domain:webdev.bryanhogan.com)"
+    ]
+  }
 }

@@ -35,7 +35,7 @@ data "aws_iam_policy_document" "github_actions_assume" {
     condition {
       test     = "StringLike"
       variable = "token.actions.githubusercontent.com:sub"
-      values   = ["repo:nicholasjunge/nicholasjunge.com:ref:refs/heads/master"]
+      values   = ["repo:nicholasjng/nicholasjunge.com:ref:refs/heads/master"]
     }
   }
 }
