@@ -33,3 +33,6 @@ __pycache__/
 
 # local Claude
 .claude/settings.local.json
+
+# Google Search Console verification — written from GH secret in CI
+static/google*.html

@@ -30,6 +30,12 @@ jobs:
 
       - run: npm ci
 
+      - name: Write Google Search Console verification file
+        env:
+          TOKEN: ${{ secrets.GOOGLE_SITE_VERIFICATION }}
+        run: |
+          printf 'google-site-verification: google%s.html\n' "$TOKEN" > "static/google${TOKEN}.html"
+
       - name: Build site
         run: npm run build
 
