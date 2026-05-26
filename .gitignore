@@ -30,3 +30,6 @@ __pycache__/
 *.tfstate.backup
 *.tfstate.lock.info
 # .terraform.lock.hcl is intentionally committed — it pins provider versions
+
+# local Claude
+.claude/settings.local.json
