@@ -2,8 +2,17 @@
 # In CI the build step precedes terraform apply, so this is never a problem.
 
 locals {
-  build_dir   = "${path.module}/../../build"
-  build_files = fileset(local.build_dir, "**")
+  build_dir = "${path.module}/../../build"
+
+  # Filenames (basename only) to exclude from S3 uploads:
+  #   .DS_Store — macOS metadata that can slip into build output on local builds
+  #   .gitkeep  — empty markers for otherwise-empty directories in the repo
+  excluded_files = [".DS_Store", ".gitkeep"]
+
+  build_files = toset([
+    for f in fileset(local.build_dir, "**") :
+    f if !contains(local.excluded_files, basename(f))
+  ])
 
   # HCL has no built-in MIME detection; this covers everything SvelteKit adapter-static produces.
   mime_types = {
