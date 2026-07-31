@@ -30,10 +30,7 @@
 			<ul>
 				{#each navLinks as link (link.href)}
 					<li>
-						<a
-							href={link.href}
-							class:active={page.url.pathname.startsWith(link.href)}
-						>
+						<a href={link.href} class:active={page.url.pathname.startsWith(link.href)}>
 							{link.label}
 						</a>
 					</li>

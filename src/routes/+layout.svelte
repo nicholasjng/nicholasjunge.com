@@ -1,6 +1,4 @@
 <script lang="ts">
-	import '@fontsource-variable/afacad-flux';
-	import '@fontsource-variable/fira-code';
 	import './var.css';
 	import './reset.css';
 	import './global.css';

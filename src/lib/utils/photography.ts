@@ -18,7 +18,15 @@ export async function getPhotography(): Promise<PhotographySummary[]> {
 		.map(([path, mod]) => {
 			const slug = path.split('/').at(-1)!.replace('.md', '');
 			const { metadata } = mod as { metadata: PhotographyMetadata };
-			return { slug, metadata };
+			return {
+				slug,
+				metadata: {
+					...metadata,
+					publishedOn: metadata.publishedOn
+						? new Date(metadata.publishedOn).toISOString()
+						: undefined
+				}
+			};
 		})
 		.sort((a, b) => {
 			if (!a.metadata.publishedOn) return 1;

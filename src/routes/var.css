@@ -21,11 +21,10 @@
 	--color-red-400: #ff3b11;
 
 	/* Fonts */
-	--font-family-display: 'Afacad Flux', sans-serif;
-	--font-family-code: 'Fira Code', 'Fira Code VF', monospace;
+	--font-family-display: system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+	--font-family-code: monospace;
 	--font-family-tags:
-		'mononoki Nerd Font Mono', 'mononoki Nerd Font', 'mononoki NF', 'mononoki', 'Fira Code',
-		monospace;
+		'mononoki Nerd Font Mono', 'mononoki Nerd Font', 'mononoki NF', 'mononoki', monospace;
 
 	/* Spacing scale */
 	--space-2xs: 0.25rem;

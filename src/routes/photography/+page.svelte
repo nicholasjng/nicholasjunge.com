@@ -12,7 +12,6 @@
 
 <header class="page-header">
 	<h1>Photography</h1>
-	<p>Photo essays, travel, and gear.</p>
 </header>
 
 <section class="entry-list">
@@ -58,12 +57,6 @@
 		font-size: var(--font-size-5xl);
 		font-weight: 700;
 		color: var(--color-fg-1);
-		margin: 0 0 var(--space-xs) 0;
-	}
-
-	.page-header p {
-		font-size: var(--font-size-l);
-		color: var(--color-fg-3);
 		margin: 0;
 	}
 

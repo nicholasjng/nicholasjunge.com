@@ -7,18 +7,17 @@
 </svelte:head>
 
 <article class="about">
+	<p>I'm a mathematician currently working as a software engineer in Munich, Germany.</p>
 	<p>
-		I'm a mathematician currently working as a software engineer. My main interests are algorithms,
-		especially for differential equations and large optimization problems, open-source scientific
-		computing, compilers, and hardware programming. Usually I write Python, C/C++, and sometimes a
-		little rust.
+		Currently, my main interests are scientific computing, especially in differential equations and
+		large optimization problems, and compilers. Most of my work is <a
+			href="https://github.com/nicholasjng"
+			target="_blank"
+			rel="external noopener noreferrer">open source</a
+		>.
 	</p>
 	<p>
-		On this website I mainly write about math, my software projects, and tools I find interesting.
-	</p>
-	<br />
-	<p>
-		Outside of my job, I like to be outdoors, either running or on the bike. Also, I occasionally
+		Outside of my job, I like to be outdoors, often running or on the bike. Also, I occasionally
 		post about my <a href={resolve('/photography')}>photography</a>.
 	</p>
 	<p>
@@ -32,13 +31,20 @@
 	}
 
 	.about p {
-		font-size: var(--font-size-xl);
+		font-size: var(--font-size-l);
+		line-height: 1.5;
 		color: var(--color-fg-2);
 		margin: 0;
 	}
 
 	.about p + p {
 		margin-top: var(--space-m);
+	}
+
+	@media (min-width: 640px) {
+		.about p {
+			line-height: 1.375;
+		}
 	}
 
 	.about a {

@@ -17,7 +17,15 @@ export async function getNotes(): Promise<NoteSummary[]> {
 		.map(([path, mod]) => {
 			const slug = path.split('/').at(-1)!.replace('.md', '');
 			const { metadata } = mod as { metadata: NoteMetadata };
-			return { slug, metadata };
+			return {
+				slug,
+				metadata: {
+					...metadata,
+					publishedOn: metadata.publishedOn
+						? new Date(metadata.publishedOn).toISOString()
+						: undefined
+				}
+			};
 		})
 		.sort((a, b) => {
 			if (!a.metadata.publishedOn) return 1;
@@ -29,7 +37,10 @@ export async function getNotes(): Promise<NoteSummary[]> {
 }
 
 export function normalizeTag(tag: string): string {
-	return tag.toLowerCase().replace(/[\s_.:]+/g, '-');
+	return tag
+		.trim()
+		.toLowerCase()
+		.replace(/[\s_.:]+/g, '-');
 }
 
 export function formatDate(dateStr: string): string {

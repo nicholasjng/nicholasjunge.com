@@ -31,9 +31,7 @@
 
 		{#if metadata.publishedOn}
 			<p class="published">
-				Published on <time datetime={metadata.publishedOn}
-					>{formatDate(metadata.publishedOn)}</time
-				>
+				Published on <time datetime={metadata.publishedOn}>{formatDate(metadata.publishedOn)}</time>
 			</p>
 		{/if}
 	</header>
