@@ -1,9 +1,9 @@
 async function handler(event) {
-    return {
-        statusCode: 301,
-        statusDescription: "Moved Permanently",
-        headers: {
-            location: { value: "https://nicholasjunge.com" + event.request.uri },
-        },
-    };
+	return {
+		statusCode: 301,
+		statusDescription: 'Moved Permanently',
+		headers: {
+			location: { value: 'https://nicholasjunge.com' + event.request.uri }
+		}
+	};
 }

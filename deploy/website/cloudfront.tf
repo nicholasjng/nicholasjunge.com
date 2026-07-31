@@ -45,19 +45,20 @@ resource "aws_cloudfront_distribution" "main" {
   }
 
   # SvelteKit adapter-static: unknown paths return 403 from S3;
-  # serve index.html so the client-side router can handle them.
+  # serve the SPA fallback so the client-side router can handle them.
+  # (Not index.html — that's now the real prerendered homepage.)
   custom_error_response {
     error_code         = 403
     response_code      = 200
-    response_page_path = "/index.html"
+    response_page_path = "/200.html"
   }
 
-  # 404 from S3 also falls back to index.html; the SvelteKit client-side
+  # 404 from S3 also falls back to the SPA shell; the SvelteKit client-side
   # router renders the 404 page and sets the correct HTTP status.
   custom_error_response {
     error_code         = 404
     response_code      = 200
-    response_page_path = "/index.html"
+    response_page_path = "/200.html"
   }
 
   restrictions {
