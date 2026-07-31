@@ -4,8 +4,20 @@ import adapter from '@sveltejs/adapter-static';
 import { createHighlighter } from 'shiki';
 
 const highlighter = await createHighlighter({
-	themes: ['github-dark', 'github-light'],
-	langs: ['python', 'typescript', 'javascript', 'bash', 'json', 'css', 'html', 'svelte', 'rust', 'c', 'cpp']
+	themes: ['nord', 'github-light'],
+	langs: [
+		'python',
+		'typescript',
+		'javascript',
+		'bash',
+		'json',
+		'css',
+		'html',
+		'svelte',
+		'rust',
+		'c',
+		'cpp'
+	]
 });
 
 /** @type {import('@sveltejs/kit').Config} */
@@ -15,7 +27,12 @@ const config = {
 		runes: ({ filename }) => (filename.split(/[/\\]/).includes('node_modules') ? undefined : true)
 	},
 	kit: {
-		adapter: adapter({ fallback: 'index.html' })
+		adapter: adapter({ fallback: '200.html' }),
+		prerender: {
+			// No photography entries exist yet, so /photography/[slug] is
+			// unreachable by the crawler — warn instead of failing the build.
+			handleUnseenRoutes: 'warn'
+		}
 	},
 	preprocess: [
 		mdsvex({
@@ -26,7 +43,7 @@ const config = {
 					const html = escapeSvelte(
 						highlighter.codeToHtml(code, {
 							lang,
-							themes: { light: 'github-light', dark: 'github-dark' },
+							themes: { light: 'github-light', dark: 'nord' },
 							defaultColor: false
 						})
 					);

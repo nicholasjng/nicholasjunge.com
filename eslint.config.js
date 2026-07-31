@@ -12,6 +12,11 @@ const gitignorePath = path.resolve(import.meta.dirname, '.gitignore');
 
 export default defineConfig(
 	includeIgnoreFile(gitignorePath),
+	{
+		// Terraform-managed infra code (e.g. the CloudFront Function handler),
+		// not part of the SvelteKit app.
+		ignores: ['deploy/**']
+	},
 	js.configs.recommended,
 	ts.configs.recommended,
 	svelte.configs.recommended,
