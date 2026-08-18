@@ -73,13 +73,13 @@
 		display: flex;
 		flex-direction: row;
 		flex-wrap: wrap;
-		gap: 0 var(--space-xs);
+		gap: 0 var(--space-s);
 		list-style: none;
 	}
 
 	.tags a {
 		font-family: var(--font-family-tags);
-		font-size: var(--font-size-m);
+		font-size: var(--font-size-l);
 		color: var(--color-fg-3);
 	}
 

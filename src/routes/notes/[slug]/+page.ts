@@ -1,7 +1,7 @@
 import { error } from '@sveltejs/kit';
 import type { PageLoad } from './$types';
 import type { NoteMetadata } from '$lib/utils/notes';
-import type { ComponentType } from 'svelte';
+import type { Component } from 'svelte';
 
 export const load: PageLoad = async ({ params }) => {
 	const notes = import.meta.glob('/src/notes/*.md');
@@ -11,7 +11,7 @@ export const load: PageLoad = async ({ params }) => {
 		error(404, 'Note not found');
 	}
 
-	const mod = (await noteLoader()) as { default: ComponentType; metadata: NoteMetadata };
+	const mod = (await noteLoader()) as { default: Component; metadata: NoteMetadata };
 
 	return {
 		content: mod.default,

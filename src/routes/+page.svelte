@@ -211,11 +211,11 @@
 		margin-top: var(--space-xs);
 		display: flex;
 		flex-wrap: wrap;
-		gap: var(--space-s);
+		gap: var(--space-m);
 	}
 
 	.tags a {
-		font-size: var(--font-size-xs);
+		font-size: var(--font-size-s);
 		color: var(--color-fg-4);
 	}
 
