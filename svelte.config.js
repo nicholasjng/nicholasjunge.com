@@ -16,7 +16,10 @@ const highlighter = await createHighlighter({
 		'svelte',
 		'rust',
 		'c',
-		'cpp'
+		'cpp',
+		'cmake',
+    'toml',
+		'yaml',
 	]
 });
 
