@@ -1,5 +1,5 @@
 <script>
-	import { resolve } from '$app/paths';
+	import { asset, resolve } from '$app/paths';
 </script>
 
 <svelte:head>
@@ -21,7 +21,7 @@
 		post about my <a href={resolve('/photography')}>photography</a>.
 	</p>
 	<p>
-		You can find my CV <a href={resolve('/about/cv.pdf')}>here</a>.
+		You can find my CV <a href={asset('/about/cv.pdf')}>here</a>.
 	</p>
 </article>
 
