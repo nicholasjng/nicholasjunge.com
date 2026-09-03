@@ -100,8 +100,8 @@ Another tip: If you are a heavy `nb::ndarray` user, you might want to disable ru
 
 ### Skip build isolation to preserve clangd highlighting
 
-I use Zed as my daily driver editor, and it integrates very well with clangd LSP.
-However, there's one regrettable interaction between CMake's `compile_commands.json` and Python's PEP 517 build specification:
+I currently use Zed as my daily driver editor, and it integrates very well with clangd LSP.
+However, there's one negative interaction between CMake's `compile_commands.json` and Python's PEP 517 build specification:
 For projects sourcing headers from a Python package (and nanobind is one of these packages), building from source in isolation will stamp include paths leading to the ephemeral venv into the compilation database.
 When the venv is then reaped directly after the build process completes, these paths do not exist anymore, leading to a litany of symbol errors in your files.
 
@@ -155,9 +155,9 @@ Here, the `typing.Self` return explicitly communicates that the instance is retu
 
 ```cpp
 .def("__exit__", [](PauseScope& self, nb::object, nb::object, nb::object) { ... },
-"exc_type"_a.none(), "exc_value"_a.none(), "traceback"_a.none(),
-nb::sig("def __exit__(self, exc_type: type[BaseException] | None, "
-        "exc_value: BaseException | None, traceback: types.TracebackType | None) -> None")
+    "exc_type"_a.none(), "exc_value"_a.none(), "traceback"_a.none(),
+    nb::sig("def __exit__(self, exc_type: type[BaseException] | None, "
+            "exc_value: BaseException | None, traceback: types.TracebackType | None) -> None"))
 ```
 
 This is enough for a class to be identified as a valid context manager in Python.
@@ -170,5 +170,5 @@ With nanobind v3 released just last month, there has been a change in bindings p
 Project owners can now opt into [split mode](https://nanobind.readthedocs.io/en/latest/split_mode.html) to package wheels with stable ABI floors lower than Python 3.12, although that does not yet solve the proposed `abi3t` packaging problem once free-threaded interpreters enter the mix.
 
 I think writing great Python bindings for existing C++ codebases has gotten substantially easier over the past few years.
-Actually, I got a glimpse of the difference when writing a plugin for QGIS and GDAL in Python, which both use SIP as a bindings generator, and largely lack modern editor integrations, in addition to documented lifetime problems.
+Actually, I got a glimpse of the difference when writing a plugin for QGIS and GDAL in Python, both of which use SIP as a bindings generator, and largely lack modern editor integrations, in addition to documented lifetime problems.
 Outside of the probable performance improvements, the LSP and type checker integration that stubgen provides is already so much better that I would choose nanobind again for my projects going forward.
