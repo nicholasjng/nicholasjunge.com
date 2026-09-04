@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { formatDate } from '$lib/utils/notes';
 	import { resolve } from '$app/paths';
+	import Seo from '$lib/components/Seo.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 </script>
 
-<svelte:head>
-	<title>#{data.tag}</title>
-</svelte:head>
+<Seo
+	title={`#${data.tag} — Nicholas Junge`}
+	description={`Notes and photography tagged “${data.tag}” by Nicholas Junge.`}
+/>
 
 <header class="page-header">
 	<p class="kicker">Tag</p>

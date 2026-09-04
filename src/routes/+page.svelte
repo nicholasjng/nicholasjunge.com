@@ -1,14 +1,12 @@
 <script>
 	import { asset, resolve } from '$app/paths';
+	import Seo from '$lib/components/Seo.svelte';
 </script>
 
-<svelte:head>
-	<title>About — Nicholas Junge</title>
-	<meta
-		name="description"
-		content="Nicholas Junge is a mathematician and software engineer based in Munich, Germany."
-	/>
-</svelte:head>
+<Seo
+	title="About — Nicholas Junge"
+	description="Nicholas Junge is a mathematician and software engineer based in Munich, Germany."
+/>
 
 <article class="about">
 	<p>I'm a mathematician currently working as a software engineer in Munich, Germany.</p>

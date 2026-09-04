@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { formatDate, normalizeTag } from '$lib/utils/notes';
 	import { resolve } from '$app/paths';
+	import Seo from '$lib/components/Seo.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
@@ -8,12 +9,12 @@
 	const { content: Entry, metadata } = $derived(data);
 </script>
 
-<svelte:head>
-	<title>{metadata.title}</title>
-	{#if metadata.description}
-		<meta name="description" content={metadata.description} />
-	{/if}
-</svelte:head>
+<Seo
+	title={metadata.title}
+	description={metadata.description ?? `Photography by Nicholas Junge: ${metadata.title}`}
+	type="article"
+	publishedOn={metadata.publishedOn}
+/>
 
 <article class="entry">
 	{#if metadata.cover}

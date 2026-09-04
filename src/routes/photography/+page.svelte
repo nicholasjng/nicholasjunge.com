@@ -1,14 +1,16 @@
 <script lang="ts">
 	import { formatDate } from '$lib/utils/notes';
 	import { resolve } from '$app/paths';
+	import Seo from '$lib/components/Seo.svelte';
 	import type { PageData } from './$types';
 
 	let { data }: { data: PageData } = $props();
 </script>
 
-<svelte:head>
-	<title>Photography</title>
-</svelte:head>
+<Seo
+	title="Photography — Nicholas Junge"
+	description="Photography by Nicholas Junge."
+/>
 
 <header class="page-header">
 	<h1>Photography</h1>
