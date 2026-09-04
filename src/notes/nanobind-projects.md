@@ -1,6 +1,7 @@
 ---
-title: Modern bindings for modern solutions
+title: What I learned building Python bindings with nanobind
 description: Introducing some of my recent projects, and things I learned building Python bindings with nanobind.
+publishedOn: 2026-09-03
 tags:
   - python
   - c++
@@ -14,9 +15,9 @@ Since my first merged [pull request](https://github.com/wjakob/nanobind/pull/114
 The reasons I find nanobind so engaging are easy to explain:
 
 1. It is a **very** high quality C++ codebase, so I get to write (and read!) C++, something I have not done professionally since my first internship (great times hacking on ODE simulations at Siemens!), and don't do at all in my current job.
-2. It also has an interesting community, with many experts in numerics and high-performance computing on one hand, and occasionally visiting Python core developers on the other, specifically those working on the C API. Exchanging thoughts with the people in this community, or even just reading discussions between them that do not involve me directly is also something I value very highly.
+2. It also has an interesting community, with many experts in numerics and high-performance computing on one hand, and occasionally visiting Python core developers on the other, especially those working on the C API. Exchanging thoughts with the people in this community, or even just reading discussions between them that do not involve me directly is also something I value very highly.
 3. Making quality additions to the project is not easy, and the high standard of the project forces me to polish each of my prospective contributions before sending it. 
-This may sound silly, but it's very real to me - an enforced, aspirational standard lifts up every project, and such a standard is especially important for a project as widely used in production as nanobind is, especially in the age of coding agents.
+This may sound silly, but it's very real to me - an enforced, aspirational standard lifts up every project, and such a standard is especially important for something as widely used in production as nanobind is, especially in the age of coding agents.
 
 What has changed in 2026 is that I have started to create my own Python bindings projects with nanobind.
 This post introduces some of them, including some of my learnings along the way.
@@ -34,8 +35,8 @@ The result is [project mew](https://mew.readthedocs.io/en/latest/), now also ava
 
 ## ducky: A set of duckdb C API bindings
 
-duckdb was another candidate for fast, efficient Python bindings, as it takes pride in crunching large data directly in-process.
-It also uses pybind11 as of this writing, though the [project](https://github.com/duckdb/duckdb-python) has since moved to nanobind for its upcoming v2 release.
+[duckdb](https://github.com/duckdb/duckdb-python) was another candidate for fast, efficient Python bindings, as it takes pride in crunching large data directly in-process.
+It also uses pybind11 as of this writing, though the project has since moved to nanobind for its upcoming v2 release.
 
 I engineered the bindings against the stable C API to reduce churn due to the high duckDB upstream development speed. 
 It already exposes much of the functionality that duckdb's C++ API offers.
@@ -53,6 +54,7 @@ Unlike mew, I do not consider ducky as production-ready software, but I like the
 
 Lately, I explored lowering different flavors of IR, among them JAX's jaxpr and StableHLO, and also more general MLIR, to Apple GPU to speed up computations on my local devices.
 Sadly, Apple does not open-source their compiler toolchains and compilation paths, so a direct lowering with standard MLIR tools is not possible.
+
 What we can do instead is pick an IR stage in the lowering chain, ideally one that's already sufficiently optimized, and translate it to a (hopefully equivalent) Metal Shading Language (MSL) program.
 
 Apple's Metal interfaces used to be Swift and ObjC-only, but they started shipping C++ headers a while ago.
@@ -63,6 +65,9 @@ The kernel carries information about its expected input dtypes in its entry poin
 
 I am using this in my [palladium](https://github.com/nicholasjng/palladium) project, which translates Pallas kernels in JAX programs to MSL and runs them on GPU, ideally resulting in dramatic speedups over the CPU.
 First tests on ODE problems were promising, simply because running a Pallas kernel concurrently on a group of GPU threads is way faster than vmapping over a Diffrax ODE solve.
+
+Another test on a Pallas flash attention kernel was not, because I am effectively competing against almost 10 years of XLA codegen optimizations for matrix multiplications with a tiny MSL emitter.
+But with a few improvements, especially using threadgroups or the newer `<metal_tensor>` library, maybe parity is possible without too much effort.
 
 ## Selected nanobind nuggets
 
@@ -101,11 +106,11 @@ Another tip: If you are a heavy `nb::ndarray` user, you might want to disable ru
 ### Skip build isolation to preserve clangd highlighting
 
 I currently use Zed as my daily driver editor, and it integrates very well with clangd LSP.
-However, there's one negative interaction between CMake's `compile_commands.json` and Python's PEP 517 build specification:
+However, there is one negative interaction between CMake's `compile_commands.json` and Python's PEP 517 build specification:
 For projects sourcing headers from a Python package (and nanobind is one of these packages), building from source in isolation will stamp include paths leading to the ephemeral venv into the compilation database.
 When the venv is then reaped directly after the build process completes, these paths do not exist anymore, leading to a litany of symbol errors in your files.
 
-As a fix, assuming you use the `uv` toolchain as well, you can disable build isolation for your project like so:
+To fix, assuming you use the `uv` toolchain as well, you can disable build isolation for your project like so:
 
 ```toml
 [tool.uv]
@@ -115,7 +120,7 @@ no-build-isolation-package = ["mew-bench"]
 For all three mentioned projects, I am using `scikit-build-core` as the PEP 517 build backend.
 By default, it creates a build subtree for each wheel ABI tag you build your project against.
 While this is good practice, it is a problem for clangd, since that means the path to `compile_commands.json` is not stable across builds for different Python interpreters, OS architectures, and ABIs.
-To fix, you can use the following snippet to symlink the database into your project root:
+To fix, you can use the following snippet to symlink the most recent build's compilation database into your project root:
 
 ```cmake
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
@@ -141,7 +146,7 @@ CompileFlags:
 nanobind's `nb::sig` is a great escape hatch when a binding cannot communicate extra typing info that would be useful to Python.
 An example I encountered multiple times is the context manager protocol.
 Binding a C++ RAII class as a context manager is very useful, since both concepts align well in terms of lifetime management.
-The following is an implementation of mew's `PauseScope`:
+The following is an implementation sketch of mew's `PauseScope` context manager hooks:
 
 ```cpp
 .def("__enter__", [](PauseScope& self) -> PauseScope& { return self; },
@@ -162,13 +167,14 @@ Here, the `typing.Self` return explicitly communicates that the instance is retu
 
 This is enough for a class to be identified as a valid context manager in Python.
 
-Note that binding RAII classes with some bookkeeping in them (such as pointers to owning objects), you may have to use `nb::keep_alive<Nurse, Patient>()` annotations to ensure the context-scoped object lives at least as long as the other objects it is referring to.
+Note that when binding RAII classes with some bookkeeping in them (such as pointers to owning objects), you may have to use `nb::keep_alive<Nurse, Patient>()` annotations to ensure the context-scoped object lives at least as long as the other objects it is referring to.
 
 ## Outlook
 
 With nanobind v3 released just last month, there has been a change in bindings packaging.
 Project owners can now opt into [split mode](https://nanobind.readthedocs.io/en/latest/split_mode.html) to package wheels with stable ABI floors lower than Python 3.12, although that does not yet solve the proposed `abi3t` packaging problem once free-threaded interpreters enter the mix.
 
-I think writing great Python bindings for existing C++ codebases has gotten substantially easier over the past few years.
-Actually, I got a glimpse of the difference when writing a plugin for QGIS and GDAL in Python, both of which use SIP as a bindings generator, and largely lack modern editor integrations, in addition to documented lifetime problems.
+All in all, I think writing great Python bindings for existing C++ codebases has gotten substantially easier over the past few years.
+I actually got a glimpse of the differences by writing a plugin for QGIS and GDAL in Python, both of which use SIP as a bindings generator, and largely lack modern editor integrations, in addition to documented lifetime problems.
+
 Outside of the probable performance improvements, the LSP and type checker integration that stubgen provides is already so much better that I would choose nanobind again for my projects going forward.
