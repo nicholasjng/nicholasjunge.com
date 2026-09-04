@@ -14,7 +14,6 @@ export async function GET() {
 
 	const urls = [
 		'/',
-		'/about',
 		'/notes',
 		'/photography',
 		...notes.map((n) => `/notes/${n.slug}`),

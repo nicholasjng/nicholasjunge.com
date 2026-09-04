@@ -4,10 +4,14 @@
 	import { resolve } from '$app/paths';
 
 	const navLinks = [
+		{ href: resolve('/'), label: 'About' },
 		{ href: resolve('/notes'), label: 'Notes' },
-		{ href: resolve('/photography'), label: 'Photography' },
-		{ href: resolve('/about'), label: 'About' }
+		{ href: resolve('/photography'), label: 'Photography' }
 	];
+
+	function isActive(href: string): boolean {
+		return href === resolve('/') ? page.url.pathname === href : page.url.pathname.startsWith(href);
+	}
 
 	let dark = $state(browser ? !document.documentElement.classList.contains('light') : true);
 
@@ -30,7 +34,7 @@
 			<ul>
 				{#each navLinks as link (link.href)}
 					<li>
-						<a href={link.href} class:active={page.url.pathname.startsWith(link.href)}>
+						<a href={link.href} class:active={isActive(link.href)}>
 							{link.label}
 						</a>
 					</li>
@@ -117,8 +121,13 @@
 	}
 
 	nav a {
+		display: block;
+		padding: var(--space-2xs) var(--space-xs);
+		border-radius: var(--radius-s);
 		color: var(--color-fg-3);
-		transition: color var(--transition-fast);
+		transition:
+			color var(--transition-fast),
+			background-color var(--transition-fast);
 	}
 
 	nav a:hover {
@@ -127,6 +136,7 @@
 
 	nav a.active {
 		color: var(--color-blue-300);
+		background-color: color-mix(in srgb, var(--color-blue-300) 10%, transparent);
 	}
 
 	.theme-toggle {

@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { formatDate, normalizeTag } from '$lib/utils/notes';
+	import { formatDate } from '$lib/utils/notes';
 	import { resolve } from '$app/paths';
 	import type { PageData } from './$types';
 
@@ -23,22 +23,12 @@
 				<li>
 					<a href={resolve('/notes/[slug]', { slug: note.slug })} class="title-link">
 						<span class="title">{note.metadata.title}</span>
-						{#if note.metadata.description}
-							<p class="description">{note.metadata.description}</p>
-						{/if}
 					</a>
-					<div class="meta">
-						{#if note.metadata.publishedOn}
-							<time datetime={note.metadata.publishedOn}>
-								{formatDate(note.metadata.publishedOn)}
-							</time>
-						{/if}
-						{#if note.metadata.tags && note.metadata.tags.length > 0}
-							{#each note.metadata.tags as tag (tag)}
-								<a href={resolve('/tags/[tag]', { tag: normalizeTag(tag) })} class="tag">#{tag}</a>
-							{/each}
-						{/if}
-					</div>
+					{#if note.metadata.publishedOn}
+						<time class="date" datetime={note.metadata.publishedOn}>
+							{formatDate(note.metadata.publishedOn)}
+						</time>
+					{/if}
 				</li>
 			{/each}
 		</ul>
@@ -68,10 +58,17 @@
 	.note-list ul {
 		display: flex;
 		flex-direction: column;
-		gap: var(--space-xl);
 		list-style: none;
 		margin: 0;
 		padding: 0;
+	}
+
+	.note-list li {
+		padding: var(--space-l) 0;
+	}
+
+	.note-list li + li {
+		border-top: 1px solid color-mix(in srgb, var(--color-ui-2) 55%, transparent);
 	}
 
 	.title-link {
@@ -88,24 +85,10 @@
 		text-decoration: underline;
 	}
 
-	.description {
-		margin: var(--space-2xs) 0 0 0;
-		line-height: 1.375;
-		color: color-mix(in srgb, var(--color-fg-2) 80%, transparent);
-	}
-
-	.meta {
+	.date {
 		margin-top: var(--space-xs);
-		display: flex;
-		flex-direction: row;
-		flex-wrap: wrap;
-		align-items: center;
-		gap: var(--space-s);
+		display: block;
 		font-size: var(--font-size-s);
 		color: var(--color-fg-4);
-	}
-
-	.meta .tag:hover {
-		color: var(--color-fg-3);
 	}
 </style>
