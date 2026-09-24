@@ -31,6 +31,36 @@ npm run dev -- --open
 
 ## Building
 
+### Public CV
+
+The website CV source is `cv/cv_public.typ`; its layout is in `cv/cv-style.typ`.
+Edit these files here for future website CV updates. The sources were imported
+from the separate application-CV repository, but rebuilding requires only this
+repository, Typst, and the Georgia font (including bold and italic variants).
+Last verified with Typst 0.15.1 on macOS. Georgia is not bundled in this repo.
+
+From the repository root:
+
+```sh
+npm run cv:build
+# Or rebuild automatically on source changes:
+npm run cv:watch
+```
+
+Without npm, the equivalent command is:
+
+```sh
+typst compile cv/cv_public.typ static/about/cv.pdf
+```
+
+Review the exported PDF for wrapping and confirm it remains one page. Commit
+both the sources and `static/about/cv.pdf`. Update the download date in
+`src/routes/+page.svelte` and `src/routes/about/+page.svelte` when appropriate.
+The normal site build uses the committed PDF, so deployment does not require
+Typst or local font installation.
+
+### Website
+
 To create a production version of your app:
 
 ```sh
