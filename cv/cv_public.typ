@@ -49,7 +49,8 @@
 #v(10pt)
 #bullets(
   [*Benchmarking:* Maintaining Google Benchmark’s Python bindings; received a Google Open Source Peer Bonus in 2023. Built #link("https://github.com/nicholasjng/mew")[mew] on top of it with a Python API, CLI, and comparison workflow.],
-  [*Open source:* Contributed NumPy functionality and numerical solver improvements to #link("https://github.com/jax-ml/jax/pulls?q=is%3Apr+author%3Anicholasjng+is%3Aclosed")[JAX]. Also contributed to MLIR, DuckDB, and nanobind. Authored #link("https://github.com/nicholasjng/nanobind-bazel/")[nanobind-bazel] for creating Python–C++ bindings in Bazel.],
+  [*Open source:* Contributed NumPy functionality and numerical solver improvements to #link("https://github.com/jax-ml/jax/pulls?q=is%3Apr+author%3Anicholasjng+is%3Aclosed")[JAX]. Also contributed to MLIR, DuckDB, and nanobind. Authored #link("https://github.com/nicholasjng/nanobind-bazel/")[nanobind-bazel] for creating C++-to-Python bindings in Bazel.],
+  [*Speaking:* Presented a RAG-based news aggregation Slackbot project with Langfuse observability at the MLOps Community Meetup, Munich (October 2025).]
 )
 
 #section("Education")
@@ -62,12 +63,12 @@
 #entry(
   "B.Sc. Physics | Bielefeld University (Bielefeld, DE) | GPA (US/DE): 3.2/1.8",
   "Oct 2013 – Sep 2017",
-  [Study topics: Theoretical physics, numerical analysis, mathematical modeling.],
+  [Study topics: Theoretical physics, numerical analysis, ODEs/PDEs. Semester abroad at *Bergen University*.],
 )
 
 #section("Skills, Tools & Languages")
 #list(indent: 0pt, body-indent: 5pt, tight: false, spacing: 7pt,
-  [*Programming:* Python, C++17, TypeScript.],
-  [*Frameworks & tools:* JAX/Pallas, MLX, Apple Metal, MLflow, BentoML, nanobind, CMake, Bazel, Docker, Kubernetes, Terraform.],
+  [*Programming:* Python, C++17, TypeScript, Apple Metal.],
+  [*Frameworks & tools:* JAX/Pallas, MLX, BentoML, nanobind, CMake, Bazel, Docker, Kubernetes, Terraform.],
   [*Spoken languages:* German, English, Norwegian, Danish, Spanish.],
 )
