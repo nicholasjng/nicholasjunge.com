@@ -259,6 +259,20 @@ data "aws_iam_policy_document" "deploy_permissions" {
     ]
     resources = ["*"]
   }
+
+  statement {
+    sid    = "CloudFrontResponseHeadersPolicies"
+    effect = "Allow"
+    actions = [
+      "cloudfront:CreateResponseHeadersPolicy",
+      "cloudfront:GetResponseHeadersPolicy",
+      "cloudfront:GetResponseHeadersPolicyConfig",
+      "cloudfront:UpdateResponseHeadersPolicy",
+      "cloudfront:DeleteResponseHeadersPolicy",
+      "cloudfront:ListResponseHeadersPolicies",
+    ]
+    resources = ["*"]
+  }
 }
 
 resource "aws_iam_role_policy" "deploy" {
