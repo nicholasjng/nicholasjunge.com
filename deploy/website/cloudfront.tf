@@ -72,6 +72,7 @@ resource "aws_cloudfront_distribution" "main" {
   aliases             = ["nicholasjunge.com"]
   enabled             = true
   is_ipv6_enabled     = true
+  http_version        = "http2and3"
   default_root_object = "index.html"
 
   origin {
