@@ -33,7 +33,7 @@ data "aws_iam_policy_document" "github_actions_assume" {
 
     # Scoped to pushes to master in the website repo only.
     condition {
-      test     = "StringLike"
+      test     = "StringEquals"
       variable = "token.actions.githubusercontent.com:sub"
       values   = ["repo:nicholasjng/nicholasjunge.com:ref:refs/heads/master"]
     }
@@ -117,17 +117,37 @@ data "aws_iam_policy_document" "deploy_permissions" {
     resources = ["*"]
   }
 
-  # Record mutations are restricted to the nicholasjunge.com zone.
   statement {
     sid    = "Route53Zone"
     effect = "Allow"
     actions = [
       "route53:GetHostedZone",
-      "route53:ChangeResourceRecordSets",
       "route53:ListResourceRecordSets",
       "route53:ListTagsForResource",
     ]
     resources = ["arn:aws:route53:::hostedzone/${data.aws_route53_zone.main.zone_id}"]
+  }
+
+  # Record mutations are limited to the records the website stack manages, so
+  # a leaked deploy credential cannot repoint MX/TXT records (mail, domain
+  # verification). "_*" covers the ACM validation CNAMEs.
+  statement {
+    sid       = "Route53Records"
+    effect    = "Allow"
+    actions   = ["route53:ChangeResourceRecordSets"]
+    resources = ["arn:aws:route53:::hostedzone/${data.aws_route53_zone.main.zone_id}"]
+
+    condition {
+      test     = "ForAllValues:StringLike"
+      variable = "route53:ChangeResourceRecordSetsNormalizedRecordNames"
+      values   = [local.domain, "www.${local.domain}", "_*.${local.domain}"]
+    }
+
+    condition {
+      test     = "ForAllValues:StringEquals"
+      variable = "route53:ChangeResourceRecordSetsRecordTypes"
+      values   = ["A", "AAAA", "CAA", "CNAME"]
+    }
   }
 
   # ── ACM ───────────────────────────────────────────────────────────────────
