@@ -14,15 +14,20 @@ locals {
     f if !contains(local.excluded_files, basename(f))
   ])
 
-  # HCL has no built-in MIME detection; this covers everything SvelteKit adapter-static produces.
+  # HCL has no built-in MIME detection; this covers adapter-static output plus static/ media.
   mime_types = {
+    ".avif"        = "image/avif"
     ".css"         = "text/css"
+    ".gif"         = "image/gif"
     ".html"        = "text/html; charset=utf-8"
     ".ico"         = "image/x-icon"
     ".jpeg"        = "image/jpeg"
     ".jpg"         = "image/jpeg"
-    ".js"          = "application/javascript"
+    ".js"          = "text/javascript"
     ".json"        = "application/json"
+    ".mjs"         = "text/javascript"
+    ".mp4"         = "video/mp4"
+    ".pdf"         = "application/pdf"
     ".png"         = "image/png"
     ".svg"         = "image/svg+xml"
     ".ttf"         = "font/ttf"
