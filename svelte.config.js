@@ -30,7 +30,7 @@ const config = {
 		runes: ({ filename }) => (filename.split(/[/\\]/).includes('node_modules') ? undefined : true)
 	},
 	kit: {
-		adapter: adapter({ fallback: '200.html' }),
+		adapter: adapter({ fallback: '404.html' }),
 		prerender: {
 			// No photography entries exist yet, so /photography/[slug] is
 			// unreachable by the crawler — warn instead of failing the build.
