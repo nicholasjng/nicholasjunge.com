@@ -19,6 +19,16 @@ resource "aws_cloudfront_function" "www_redirect" {
   code    = file("${path.module}/functions/www-redirect.js")
 }
 
+# ── CloudFront Function — extensionless path → prerendered .html ─────────────
+
+resource "aws_cloudfront_function" "html_rewrite" {
+  name    = "html-rewrite"
+  runtime = "cloudfront-js-2.0"
+  comment = "Map /path to the prerendered /path.html object"
+  publish = true
+  code    = file("${path.module}/functions/html-rewrite.js")
+}
+
 # ── Main CloudFront distribution (nicholasjunge.com) ─────────────────────────
 
 resource "aws_cloudfront_distribution" "main" {
@@ -42,23 +52,25 @@ resource "aws_cloudfront_distribution" "main" {
     compress               = true
     # AWS managed CachingOptimized policy
     cache_policy_id = "658327ea-f89d-4fab-a63d-7e88639e58f6"
+
+    function_association {
+      event_type   = "viewer-request"
+      function_arn = aws_cloudfront_function.html_rewrite.arn
+    }
   }
 
-  # SvelteKit adapter-static: unknown paths return 403 from S3;
-  # serve the SPA fallback so the client-side router can handle them.
-  # (Not index.html — that's now the real prerendered homepage.)
+  # Every route is prerendered, so a missing object is a genuine 404. S3 returns
+  # 403 for missing keys because OAC is not granted s3:ListBucket.
   custom_error_response {
     error_code         = 403
-    response_code      = 200
-    response_page_path = "/200.html"
+    response_code      = 404
+    response_page_path = "/404.html"
   }
 
-  # 404 from S3 also falls back to the SPA shell; the SvelteKit client-side
-  # router renders the 404 page and sets the correct HTTP status.
   custom_error_response {
     error_code         = 404
-    response_code      = 200
-    response_page_path = "/200.html"
+    response_code      = 404
+    response_page_path = "/404.html"
   }
 
   restrictions {
