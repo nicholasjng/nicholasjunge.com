@@ -5,24 +5,17 @@ on:
     branches: [master]
 
 permissions:
-  id-token: write # required to request the GitHub OIDC JWT
   contents: read
 
 jobs:
-  deploy:
+  # Runs all third-party npm code. Has no id-token permission, so nothing in
+  # here can obtain AWS credentials.
+  build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
-
-      - name: Configure AWS credentials (OIDC)
-        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
-        with:
-          # Assumes the github-actions role via OIDC. Terraform then assumes the
-          # deploy role via the assume_role block in deploy/website/providers.tf.
-          role-to-assume: arn:aws:iam::506333259771:role/nicholasjunge-github-actions
-          aws-region: us-east-1
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -39,6 +32,36 @@ jobs:
 
       - name: Build site
         run: npm run build
+
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: build
+          path: build/
+          retention-days: 1
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write # required to request the GitHub OIDC JWT
+      contents: read
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: build
+          path: build/
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@e6de054238d6b7531b4efff3b6587d9aade6a06c # v6.2.3
+        with:
+          # Assumes the github-actions role via OIDC. Terraform then assumes the
+          # deploy role via the assume_role block in deploy/website/providers.tf.
+          role-to-assume: arn:aws:iam::506333259771:role/nicholasjunge-github-actions
+          aws-region: us-east-1
 
       - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
         with:
