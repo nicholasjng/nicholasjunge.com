@@ -15,7 +15,9 @@ resource "aws_s3_bucket_public_access_block" "site" {
   restrict_public_buckets = true
 }
 
-# ── Bucket policy — allow both CloudFront distributions via OAC ───────────────
+# ── Bucket policy — allow the main CloudFront distribution via OAC ────────────
+# The www distribution answers every request from its redirect function and
+# never reads from S3, so it is deliberately not granted access.
 
 resource "aws_s3_bucket_policy" "site" {
   bucket = aws_s3_bucket.site.id
@@ -30,10 +32,7 @@ resource "aws_s3_bucket_policy" "site" {
       Resource  = "${aws_s3_bucket.site.arn}/*"
       Condition = {
         StringEquals = {
-          "AWS:SourceArn" = [
-            aws_cloudfront_distribution.main.arn,
-            aws_cloudfront_distribution.www.arn,
-          ]
+          "AWS:SourceArn" = aws_cloudfront_distribution.main.arn
         }
       }
     }]
