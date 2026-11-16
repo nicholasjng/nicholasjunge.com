@@ -2,6 +2,8 @@ export interface NoteMetadata {
 	title: string;
 	description?: string;
 	publishedOn?: string;
+	/** Share image for link previews; site-relative path or absolute URL. */
+	image?: string;
 	tags?: string[];
 }
 

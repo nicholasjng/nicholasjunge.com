@@ -14,6 +14,7 @@
 	description={metadata.description ?? `Photography by Nicholas Junge: ${metadata.title}`}
 	type="article"
 	publishedOn={metadata.publishedOn}
+	image={metadata.cover}
 />
 
 <article class="entry">
