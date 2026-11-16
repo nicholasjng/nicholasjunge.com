@@ -7,6 +7,11 @@ on:
 permissions:
   contents: read
 
+# Queue rather than cancel: an interrupted apply can leave state half-written.
+concurrency:
+  group: deploy
+  cancel-in-progress: false
+
 jobs:
   # Runs all third-party npm code. Has no id-token permission, so nothing in
   # here can obtain AWS credentials.
@@ -65,7 +70,7 @@ jobs:
 
       - uses: hashicorp/setup-terraform@dfe3c3f87815947d99a8997f908cb6525fc44e9e # v4.0.1
         with:
-          terraform_version: '~> 1.9'
+          terraform_version: '~> 1.10'
 
       - name: Terraform init
         run: terraform init
