@@ -1,5 +1,5 @@
 terraform {
-  required_version = ">= 1.3.0"
+  required_version = ">= 1.10.0"
   required_providers {
     aws = {
       source  = "hashicorp/aws"
@@ -9,10 +9,11 @@ terraform {
 
   backend "s3" {
     # State bucket is created by deploy/iam — run that stack first.
-    # No DynamoDB lock table: single sequential workflow, concurrency not a concern.
-    bucket = "nicholasjunge-terraform-state"
-    key    = "website/terraform.tfstate"
-    region = "us-east-1"
+    # S3-native locking guards against a local apply racing a CI run.
+    bucket       = "nicholasjunge-terraform-state"
+    key          = "website/terraform.tfstate"
+    region       = "us-east-1"
+    use_lockfile = true
   }
 }
 
