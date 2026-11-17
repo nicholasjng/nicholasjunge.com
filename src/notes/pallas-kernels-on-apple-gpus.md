@@ -29,7 +29,7 @@ It is also possible now to write computation kernels as JAX programs with [Palla
 The kernels are compiled to the chosen target platform (currently, there are TPU and Nvidia GPU backends available to target), and stay opaque to XLA, so that no compiler optimizations happen.
 
 I think of this a bit like inline assembly in C++, especially the fact that you need to know the strengths and weaknesses of your accelerator to write efficient kernels and achieve speedups.
-My favorite intro to Pallas is Patrick Toulme's [When XLA isn't enough](https://patricktoulme.substack.com/p/when-xla-isnt-enough-from-pallas), which presents *splash attention* as an example kernel taking advantage of the TPU architecture.
+My favorite intro to Pallas is Patrick Toulme's [When XLA isn't enough](https://patricktoulme.substack.com/p/when-xla-isnt-enough-from-pallas), which presents _splash attention_ as an example kernel taking advantage of the TPU architecture.
 By avoiding materialization of the full attention matrix and an online softmax computation, he cuts HBM traffic by a factor of 30 over the naive implementation, which directly translates into a large speedup.
 
 And finally, the [MLX](https://ml-explore.github.io/mlx/build/html/index.html#) project has lifted up ML computing on Apple platforms substantially over the past three years.
@@ -120,12 +120,12 @@ The adjoint differentiates the actual RK4 steps, saving selected states and repl
 
 Here are some stabilized timings from an M1 Pro with a 10-core CPU, 16-core GPU, and 16 GB of RAM:
 
-| Points/update | JAX CPU | JAX MPS | Palladium MPS | Speedup vs CPU | Speedup vs MPS |
-|---:|---:|---:|---:|---:|---:|
-| 256 | 1.103 ms | 16.491 ms | 0.427 ms | 2.6× | 38.6× |
-| 1,024 | 9.759 ms | 17.134 ms | 0.438 ms | 22.3× | 39.1× |
-| 4,096 | 35.248 ms | 23.671 ms | 0.461 ms | 76.5× | 51.3× |
-| 16,384 | 74.032 ms | 51.351 ms | 0.612 ms | 121.0× | 83.9× |
+| Points/update |   JAX CPU |   JAX MPS | Palladium MPS | Speedup vs CPU | Speedup vs MPS |
+| ------------: | --------: | --------: | ------------: | -------------: | -------------: |
+|           256 |  1.103 ms | 16.491 ms |      0.427 ms |           2.6× |          38.6× |
+|         1,024 |  9.759 ms | 17.134 ms |      0.438 ms |          22.3× |          39.1× |
+|         4,096 | 35.248 ms | 23.671 ms |      0.461 ms |          76.5× |          51.3× |
+|        16,384 | 74.032 ms | 51.351 ms |      0.612 ms |         121.0× |          83.9× |
 
 These numbers are medians of five randomly interleaved benchmark repetitions, each collecting at least one second of synchronized wall-clock timing.
 I used [mew](https://mew.readthedocs.io/en/latest/) as a benchmarking harness, the script can be found in the palladium repository for reproduction on your own machine.

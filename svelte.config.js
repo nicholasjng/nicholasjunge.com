@@ -26,8 +26,8 @@ const highlighter = await createHighlighter({
 		'c',
 		'cpp',
 		'cmake',
-    'toml',
-		'yaml',
+		'toml',
+		'yaml'
 	]
 });
 
