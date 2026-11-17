@@ -13,8 +13,7 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  # Runs all third-party npm code. Has no id-token permission, so nothing in
-  # here can obtain AWS credentials.
+  # No id-token permission: npm code running here can't obtain AWS credentials.
   build:
     runs-on: ubuntu-latest
     steps:
@@ -63,8 +62,7 @@ jobs:
       - name: Configure AWS credentials (OIDC)
         uses: aws-actions/configure-aws-credentials@e1253824e5c10ff9df46874f81ed3ec929e19cfd # v6.3.0
         with:
-          # Assumes the github-actions role via OIDC. Terraform then assumes the
-          # deploy role via the assume_role block in deploy/website/providers.tf.
+          # Terraform then assumes the deploy role (deploy/website/providers.tf).
           role-to-assume: arn:aws:iam::506333259771:role/nicholasjunge-github-actions
           aws-region: us-east-1
 
