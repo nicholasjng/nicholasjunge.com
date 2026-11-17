@@ -280,6 +280,17 @@ data "aws_iam_policy_document" "deploy_permissions" {
     resources = ["*"]
   }
 
+  # Used by the deploy workflow after terraform apply. A deploy that only
+  # changes object metadata (e.g. Content-Type) never reaches viewers
+  # otherwise: CloudFront revalidates by ETag, gets a 304 and keeps the old
+  # headers.
+  statement {
+    sid       = "CloudFrontInvalidation"
+    effect    = "Allow"
+    actions   = ["cloudfront:CreateInvalidation"]
+    resources = ["arn:aws:cloudfront::${data.aws_caller_identity.current.account_id}:distribution/*"]
+  }
+
   statement {
     sid    = "CloudFrontResponseHeadersPolicies"
     effect = "Allow"
