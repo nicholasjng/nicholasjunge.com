@@ -16,8 +16,8 @@ The reasons I find nanobind so engaging are easy to explain:
 
 1. It is a **very** high quality C++ codebase, so I get to write (and read!) C++, something I have not done professionally since my first internship (great times hacking on ODE simulations at Siemens!), and don't do at all in my current job.
 2. It also has an interesting community, with many experts in numerics and high-performance computing on one hand, and occasionally visiting Python core developers on the other, especially those working on the C API. Exchanging thoughts with the people in this community, or even just reading discussions between them that do not involve me directly is also something I value very highly.
-3. Making quality additions to the project is not easy, and the high standard of the project forces me to polish each of my prospective contributions before sending it. 
-This may sound silly, but it's very real to me - an enforced, aspirational standard lifts up every project, and such a standard is especially important for something as widely used in production as nanobind is, especially in the age of coding agents.
+3. Making quality additions to the project is not easy, and the high standard of the project forces me to polish each of my prospective contributions before sending it.
+   This may sound silly, but it's very real to me - an enforced, aspirational standard lifts up every project, and such a standard is especially important for something as widely used in production as nanobind is, especially in the age of coding agents.
 
 What has changed in 2026 is that I have started to create my own Python bindings projects with nanobind.
 This post introduces some of them, including some of my learnings along the way.
@@ -38,7 +38,7 @@ The result is [project mew](https://mew.readthedocs.io/en/latest/), now also ava
 [duckdb](https://github.com/duckdb/duckdb-python) was another candidate for fast, efficient Python bindings, as it takes pride in crunching large data directly in-process.
 It also uses pybind11 as of this writing, though the project has since moved to nanobind for its upcoming v2 release.
 
-I engineered the bindings against the stable C API to reduce churn due to the high duckDB upstream development speed. 
+I engineered the bindings against the stable C API to reduce churn due to the high duckDB upstream development speed.
 It already exposes much of the functionality that duckdb's C++ API offers.
 The result is [ducky](https://github.com/nicholasjng/ducky/), which is not currently published on PyPI.
 
@@ -60,7 +60,7 @@ What we can do instead is pick an IR stage in the lowering chain, ideally one th
 Apple's Metal interfaces used to be Swift and ObjC-only, but they started shipping C++ headers a while ago.
 That gives us an intro to creating and obtaining Metal resources from Python by binding the classes therein.
 
-This work is contained in [metal-runtime](https://github.com/nicholasjng/metal-runtime), which exposes the `Buffer` and `Kernel` classes for allocating GPU buffers and defining GPU shaders from source text, respectively. 
+This work is contained in [metal-runtime](https://github.com/nicholasjng/metal-runtime), which exposes the `Buffer` and `Kernel` classes for allocating GPU buffers and defining GPU shaders from source text, respectively.
 The kernel carries information about its expected input dtypes in its entry point signature, but buffers can also be allocated directly from numpy arrays in Python with the aforementioned `nb::ndarray` machinery.
 
 I am using this in my [palladium](https://github.com/nicholasjng/palladium) project, which translates Pallas kernels in JAX programs to MSL and runs them on GPU, ideally resulting in dramatic speedups over the CPU.

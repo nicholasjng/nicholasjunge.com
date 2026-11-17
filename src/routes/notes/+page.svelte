@@ -7,7 +7,10 @@
 	let { data }: { data: PageData } = $props();
 </script>
 
-<Seo title="Notes — Nicholas Junge" description="Notes by Nicholas Junge on software and mathematics." />
+<Seo
+	title="Notes — Nicholas Junge"
+	description="Notes by Nicholas Junge on software and mathematics."
+/>
 
 <header class="page-header">
 	<h1>Notes</h1>
